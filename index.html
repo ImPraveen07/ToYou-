@@ -252,25 +252,39 @@
       right: -4px;
       top: 1px;
     }
-    .nokia-post .typing-area {
-      min-height: 170px;
-      margin: 10px 0;
-      position: relative;
-      overflow: hidden;
-      background: none;
-      border: none;
-      font-size: 10px;
-      font-family: 'Press Start 2P', monospace;
-      color: black;
-      outline: none;
-      z-index: 10;
-      line-height: 16px;
-      padding-right: 5px;
-      white-space: pre-wrap;
-      word-break: break-word;
-      display: flex;
-      align-items: flex-start;
-    }
+.nokia-post .typing-area {
+  max-height: 200px;                /* Limit height for scrolling */
+  margin: 10px 0;
+  position: relative;
+  overflow-y: auto;                 /* Enable vertical scrolling */
+  background: none;
+  border: none;
+  font-size: 10px;
+  font-family: 'Press Start 2P', monospace;
+  color: black;
+  outline: none;
+  z-index: 10;
+  line-height: 16px;
+  padding-right: 5px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Subtle modern scrollbar for Chrome, Edge, Safari */
+.nokia-post .typing-area::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+.nokia-post .typing-area::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.18);  /* subtle dark thumb */
+  border-radius: 4px;
+}
+
+/* For Firefox */
+.nokia-post .typing-area {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.18) transparent;
+}
     .nokia-post .rainbow-text {
       font: 10px 'Press Start 2P', monospace;
       white-space: pre-wrap;

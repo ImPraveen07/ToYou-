@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ToYou Page</title>
+  <title>ToYou❤️</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
   <style>
@@ -923,47 +923,59 @@ function renderPosts(posts, searchTerm = "") {
   for (const post of posts) {
     const div = document.createElement('div');
     div.className = "nokia-post";
+    // Determine text and icon color
+    let isWhiteTheme = (post.theme?.type === "image" && (post.theme?.value === "f1.jpg" || post.theme?.value === "f3.jpg"));
+    let textColor = isWhiteTheme ? "#fff" : "#111";
+    let iconColor = isWhiteTheme ? "#fff" : "#111";
+    // Set background
     let style = "";
     if (post.theme?.type === "color") {
-      style = `background:${post.theme.value};color:${post.theme.textColor||'black'};`;
+      style = `background:${post.theme.value};color:${textColor};`;
     } else if (post.theme?.type === "image" || post.theme?.type === "motivation") {
-      style = `background:url('${post.theme.value}') center/cover no-repeat;color:${post.theme.textColor||'white'};`;
+      style = `background:url('${post.theme.value}') center/cover no-repeat;color:${textColor};`;
     }
+    // Rainbow text
     let msgHTML = "";
     if (post.rainbow) {
-      const colors = ['#FF6584', '#6CA0DC', '#E6D1F2', '#FFE066'];
+      const colors = isWhiteTheme
+        ? ['#fff', '#fff', '#fff', '#fff']
+        : ['#111', '#111', '#111', '#111'];
       msgHTML = `<span class="rainbow-text">` + [...post.message].map((c, i) => `<span style="color:${colors[i % colors.length]}">${c}</span>`).join('') + `</span>`;
     } else {
-      msgHTML = post.message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      msgHTML = `<span style="color:${textColor};">${post.message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>`;
     }
+    // Date
     let dateStr = "";
     if (post.created) {
       const d = new Date(post.created);
       dateStr = d.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
     }
     div.innerHTML = `
-      <div class="top-bar">
-        <span class="time-display">${dateStr.split(',')[1] || '--:--'}</span>
-        <span class="receiver-name">To: ${post.receiver}</span>
+      <div class="top-bar" style="color:${textColor};">
+        <span class="time-display" style="color:${textColor};">${dateStr.split(',')[1] || '--:--'}</span>
+        <span class="receiver-name" style="color:${textColor};">To: ${post.receiver}</span>
         <div class="right-icons">
-          <div class="signal">
+          <div class="signal" style="color:${iconColor};">
             <div class="signal-bar" style="height:10px;"></div>
             <div class="signal-bar" style="height:8px;"></div>
             <div class="signal-bar" style="height:6px;"></div>
             <div class="signal-bar" style="height:4px;"></div>
           </div>
-          <div class="battery-outline">
-            <div class="battery-fill"></div>
-            <div class="battery-tip"></div>
+          <div class="battery-outline" style="color:${iconColor};border-color:${iconColor};">
+            <div class="battery-fill" style="background:${iconColor};"></div>
+            <div class="battery-tip" style="background:${iconColor};"></div>
           </div>
         </div>
       </div>
-      <div class="typing-area" style="color:${post.theme?.textColor||'black'};">
+      <div class="typing-area" style="color:${textColor};">
         ${msgHTML}
       </div>
-      <div class="meta-bar">
+      <div class="meta-bar" style="color:${textColor};">
         <span>By: ${post.sender || "Anonymous"}</span>
         <span>${dateStr.split(',')[0] || ''}</span>
+      </div>
+      <div style="text-align:center;font-size:12px;color:${textColor};margin-top:6px;font-family:'Pacifico',cursive;">
+        #ToYou❤️
       </div>
     `;
     div.style = style;

@@ -1,710 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Open Graph -->
+  <!-- Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToYou❤️ - Send your unsent messages</title>
   <meta property="og:title" content="ToYou❤️ - Send your unsent messages" />
   <meta property="og:description" content="Share your true feelings anonymously. Send a message to anyone, anytime. #ToYou❤️" />
   <meta property="og:image" content="https://impraveen07.github.io/ToYou-/f0.png" />
   <meta property="og:url" content="https://impraveen07.github.io/ToYou-/" />
   <meta property="og:type" content="website" />
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="ToYou❤️ - Send your unsent messages" />
   <meta name="twitter:description" content="Share your true feelings anonymously. Send a message to anyone, anytime. #ToYou❤️" />
   <meta name="twitter:image" content="https://impraveen07.github.io/ToYou-/f0.png" />
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ToYou❤️</title>
-
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
-    body {
-      background: #fff;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
+    :root {
+      --theme-color-1: #A0E7E5;
+      --theme-color-2: #FFD1DC;
+      --theme-color-3: #FFF5BA;
     }
-    .header {
-      font-family: 'Pacifico', cursive;
-      font-size: 36px;
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 1001;
-      color: #222;
-      background: none;
-      border: none;
-      box-shadow: none;
-    }
+    body { background: #fff; font-family: Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+    .header { font-family: 'Pacifico', cursive; font-size: 36px; position: fixed; top: 10px; left: 10px; z-index: 1001; color: #222; }
     .header span { color: red; }
-    #menuIcon {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      width: 30px;
-      height: 24px;
-      cursor: pointer;
-      z-index: 1002;
-    }
-    .bar {
-      position: absolute;
-      height: 4px;
-      width: 100%;
-      background-color: black;
-      border-radius: 2px;
-      left: 0;
-      transition: transform 0.4s ease, opacity 0.4s ease;
-      transform-origin: center;
-    }
-    .bar1 { top: 0; }
-    .bar2 { top: 50%; transform: translateY(-50%); }
-    .bar3 { bottom: 0; }
-    #menuIcon.open .bar1 {
-      transform: rotate(45deg);
-      top: 50%;
-    }
+    #menuIcon { position: fixed; top: 15px; right: 15px; width: 30px; height: 24px; cursor: pointer; z-index: 1002; }
+    .bar { position: absolute; height: 4px; width: 100%; background-color: black; border-radius: 2px; left: 0; transition: transform 0.4s ease, opacity 0.4s ease; transform-origin: center; }
+    .bar1 { top: 0; } .bar2 { top: 50%; transform: translateY(-50%); } .bar3 { bottom: 0; }
+    #menuIcon.open .bar1 { transform: rotate(45deg); top: 50%; }
     #menuIcon.open .bar2 { opacity: 0; }
-    #menuIcon.open .bar3 {
-      transform: rotate(-45deg);
-      top: 50%;
-      bottom: auto;
-    }
-    #sidePanel {
-      position: fixed;
-      top: 0;
-      right: -300px;
-      height: 100vh;
-      width: 250px;
-      background: white;
-      box-shadow: -2px 0 15px rgba(0, 0, 0, 0.2);
-      padding: 20px;
-      border-radius: 10px 0 0 10px;
-      transition: right 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1);
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-    }
-    #sidePanel.open {
-      right: 0;
-      opacity: 1;
-      pointer-events: all;
-    }
-    #sidePanel h3 {
-      margin-top: 20px;
-      text-align: center;
-    }
-    #sidePanel ul {
-      list-style: none;
-      padding: 0;
-      width: 100%;
-      margin-top: 20px;
-    }
-    #sidePanel li {
-      padding: 12px 0;
-      text-align: center;
-      border-bottom: 1px solid #ccc;
-      font-weight: bold;
-      transition: background-color 0.2s ease-in-out;
-      cursor: pointer;
-    }
-    #sidePanel li:hover {
-      background-color: #f1f1f1;
-    }
-    .image-container {
-      margin-top: 80px;
-      text-align: center;
-      background: none;
-      box-shadow: none;
-      border: none;
-    }
-    .image-container img {
-      width: 150px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: none;
-      border: none;
-      background: none;
-      display: inline-block;
-    }
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      margin: 24px 0 12px 0;
-    }
-    .search-bar input {
-      width: 260px;
-      padding: 10px;
-      font-size: 16px;
-      border: 1.5px solid #ccc;
-      border-radius: 8px 0 0 8px;
-      outline: none;
-    }
-    .search-bar button {
-      padding: 10px 18px;
-      font-size: 16px;
-      border: 1.5px solid #ccc;
-      border-left: none;
-      border-radius: 0 8px 8px 0;
-      background: #A0E7E5;
-      color: #222;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-    .search-bar button:hover {
-      background: #7ed6d6;
-    }
-    #postCount {
-      text-align:center;
-      color:#555;
-      font-size:16px;
-      margin-bottom:10px;
-    }
-    .posts-list {
-      max-width: 420px;
-      margin: 0 auto 80px auto;
-      padding: 0 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-    .nokia-post {
-      background: #A0E7E5;
-      width: 320px;
-      min-height: 300px;
-      border-radius: 25px;
-      padding: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      color: black;
-      font-family: 'Press Start 2P', monospace;
-      margin: 0 auto;
-      transition: box-shadow 0.2s;
-      border: 2px solid #A0E7E5;
-    }
-    .nokia-post .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      padding-bottom: 5px;
-      position: relative;
-    }
-    .nokia-post .time-display {
-      min-width: 55px;
-    }
-    .nokia-post .receiver-name {
-      flex: 1;
-      text-align: center;
-      font-weight: bold;
-      font-size: 12px;
-      color: #222;
-    }
-    .nokia-post .right-icons {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .nokia-post .signal {
-      display: flex;
-      gap: 1px;
-      flex-direction: row;
-      transform: rotate(180deg);
-    }
-    .nokia-post .signal-bar {
-      width: 3px;
-      background: currentColor;
-    }
-    .nokia-post .signal-bar:nth-child(1) { height: 4px; }
-    .nokia-post .signal-bar:nth-child(2) { height: 6px; }
-    .nokia-post .signal-bar:nth-child(3) { height: 8px; }
-    .nokia-post .signal-bar:nth-child(4) { height: 10px; }
-    .nokia-post .battery-outline {
-      width: 18px;
-      height: 10px;
-      border: 2px solid currentColor;
-      display: flex;
-      align-items: center;
-      padding: 1px;
-      position: relative;
-    }
-    .nokia-post .battery-fill {
-      background: currentColor;
-      height: 6px;
-      width: 80%;
-    }
-    .nokia-post .battery-tip {
-      width: 2px;
-      height: 6px;
-      background: currentColor;
-      position: absolute;
-      right: -4px;
-      top: 1px;
-    }
-.nokia-post .typing-area {
-  max-height: 200px;                /* Limit height for scrolling */
-  margin: 10px 0;
-  position: relative;
-  overflow-y: auto;                 /* Enable vertical scrolling */
-  background: none;
-  border: none;
-  font-size: 10px;
-  font-family: 'Press Start 2P', monospace;
-  color: black;
-  outline: none;
-  z-index: 10;
-  line-height: 16px;
-  padding-right: 5px;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-/* Subtle modern scrollbar for Chrome, Edge, Safari */
-.nokia-post .typing-area::-webkit-scrollbar {
-  width: 6px;
-  background: transparent;
-}
-.nokia-post .typing-area::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.18);  /* subtle dark thumb */
-  border-radius: 4px;
-}
-
-/* For Firefox */
-.nokia-post .typing-area {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0,0,0,0.18) transparent;
-}
-    .nokia-post .rainbow-text {
-      font: 10px 'Press Start 2P', monospace;
-      white-space: pre-wrap;
-      line-height: 16px;
-      word-break: break-word;
-    }
-    .nokia-post .meta-bar {
-      font-size: 10px;
-      display: flex;
-      justify-content: space-between;
-      color: #888;
-      margin-top: 8px;
-    }
-    .nokia-post .theme-preview {
-      width: 32px;
-      height: 32px;
-      border-radius: 7px;
-      border: 1.5px solid #ccc;
-      margin-right: 8px;
-      object-fit: cover;
-      display: inline-block;
-      vertical-align: middle;
-      background: #eee;
-    }
-    .create-post-btn {
-      position: fixed;
-      left: 50%;
-      bottom: 24px;
-      transform: translateX(-50%);
-      background: #A0E7E5;
-      color: #222;
-      font-size: 18px;
-      font-family: 'Pacifico', cursive;
-      border: none;
-      border-radius: 30px;
-      padding: 14px 38px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.13);
-      cursor: pointer;
-      z-index: 100;
-      transition: background 0.2s;
-    }
-    .create-post-btn:hover {
-      background: #7ed6d6;
-    }
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-    }
-    .modal-overlay.show {
-      display: flex;
-    }
-    .screen {
-      background: #A0E7E5;
-      width: 320px;
-      height: 300px;
-      border-radius: 25px;
-      padding: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.8);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      color: black;
-      font-family: 'Press Start 2P', monospace;
-    }
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      padding-bottom: 5px;
-      position: relative;
-    }
-    .time-display {
-      min-width: 55px;
-    }
-    .receiver-name {
-      flex: 1;
-      text-align: center;
-      cursor: pointer;
-    }
-    .right-icons {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .signal {
-      display: flex;
-      gap: 1px;
-      flex-direction: row;
-      transform: rotate(180deg);
-    }
-    .signal-bar {
-      width: 3px;
-      background: currentColor;
-    }
-    .signal-bar:nth-child(1) { height: 4px; }
-    .signal-bar:nth-child(2) { height: 6px; }
-    .signal-bar:nth-child(3) { height: 8px; }
-    .signal-bar:nth-child(4) { height: 10px; }
-    .battery-outline {
-      width: 18px;
-      height: 10px;
-      border: 2px solid currentColor;
-      display: flex;
-      align-items: center;
-      padding: 1px;
-      position: relative;
-    }
-    .battery-fill {
-      background: currentColor;
-      height: 6px;
-      width: 80%;
-    }
-    .battery-tip {
-      width: 2px;
-      height: 6px;
-      background: currentColor;
-      position: absolute;
-      right: -4px;
-      top: 1px;
-    }
-    .typing-area {
-      height: 170px;
-      margin: 10px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    #nokia-message {
-      width: 100%;
-      height: 100%;
-      resize: none;
-      background: transparent;
-      border: none;
-      font-size: 10px;
-      font-family: 'Press Start 2P', monospace;
-      color: black;
-      outline: none;
-      z-index: 10;
-      position: absolute;
-      line-height: 16px;
-      overflow-y: auto;
-      caret-color: black;
-      padding-right: 5px;
-    }
-    #rainbow-text-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      font: 10px 'Press Start 2P', monospace;
-      white-space: pre-wrap;
-      line-height: 16px;
-      z-index: 5;
-      pointer-events: none;
-      word-break: break-word;
-    }
-    .bg-dimmer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,0.6);
-      z-index: 1;
-      display: none;
-    }
-    .menu-bar {
-      font-size: 10px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .menu-bar span {
-      cursor: pointer;
-    }
-    .theme-popup {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 3000;
-    }
-    .theme-box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-      max-width: 90%;
-    }
-    .selected-preview {
-      width: 40px;
-      height: 40px;
-      border: 3px solid black;
-      background-size: cover;
-      background-position: center;
-    }
-    .color-row {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .color-square {
-      width: 30px;
-      height: 30px;
-      border: 2px solid black;
-      cursor: pointer;
-    }
-    .image-theme-box {
-      width: 70px;
-      height: 70px;
-      border: 2px solid #007A3D;
-      border-radius: 10px;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .image-theme-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .close-theme {
-      font-size: 10px;
-      cursor: pointer;
-    }
-    @media (max-width: 500px) {
-      .screen, .nokia-post { width: 98vw; max-width: 340px; }
-      .posts-list { max-width: 99vw; }
-    }
-    /* Modal animation for all modals */
-    .contact-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3001;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
-    }
-    .contact-modal.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .form-box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      position: relative;
-      transform: scale(0.96) translateY(30px);
-      opacity: 0;
-      transition: transform 0.35s cubic-bezier(.4,0,.2,1), opacity 0.35s cubic-bezier(.4,0,.2,1);
-    }
-    .contact-modal.show .form-box {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-    .form-box h2 {
-      margin-bottom: 15px;
-      font-size: 20px;
-      text-align: center;
-    }
-    .close-btn {
-      font-size: 16px;
-      background: transparent;
-      color: red;
-      border: none;
-      cursor: pointer;
-      float: right;
-      position: absolute;
-      right: 10px;
-      top: 10px;
-    }
-    .icon-img {
-      width: 24px;
-      height: 24px;
-      vertical-align: middle;
-      margin-right: 8px;
-      border-radius: 6px;
-      object-fit: cover;
-    }
-    .contact-links a {
-      display: block;
-      text-align: center;
-      margin: 10px 0;
-      font-size: 16px;
-      color: #333;
-      text-decoration: none;
-    }
-    .contact-links a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    #menuIcon.open .bar3 { transform: rotate(-45deg); top: 50%; bottom: auto; }
+    #sidePanel { position: fixed; top: 0; right: -300px; height: 100vh; width: 250px; background: white; box-shadow: -2px 0 15px rgba(0,0,0,0.2); padding: 20px; border-radius: 10px 0 0 10px; transition: right 0.4s cubic-bezier(.4,0,.2,1); z-index: 1000; display: flex; flex-direction: column; align-items: center; opacity: 0; pointer-events: none; }
+    #sidePanel.open { right: 0; opacity: 1; pointer-events: all; }
+    #sidePanel h3 { margin-top: 20px; text-align: center; }
+    #sidePanel ul { list-style: none; padding: 0; width: 100%; margin-top: 20px; }
+    #sidePanel li { padding: 12px 0; text-align: center; border-bottom: 1px solid #ccc; font-weight: bold; transition: background-color 0.2s ease-in-out; cursor: pointer; }
+    #sidePanel li:hover { background-color: #f1f1f1; }
+    .image-container { margin-top: 80px; text-align: center; }
+    .image-container img { width: 150px; height: auto; border-radius: 12px; }
+    .search-bar { display: flex; justify-content: center; margin: 24px 0 12px 0; }
+    .search-bar input { width: 260px; padding: 10px; font-size: 16px; border: 1.5px solid #ccc; border-radius: 8px 0 0 8px; outline: none; }
+    .search-bar button { padding: 10px 18px; font-size: 16px; border: 1.5px solid #ccc; border-left: none; border-radius: 0 8px 8px 0; background: var(--theme-color-1); color: #222; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+    .search-bar button:hover { background: #7ed6d6; }
+    #postCount { text-align:center; color:#555; font-size:16px; margin-bottom:10px; }
+    .posts-list { max-width: 420px; margin: 0 auto 80px auto; padding: 0 10px; display: flex; flex-direction: column; gap: 0; }
+    .post-wrapper { margin-bottom: 25px; }
+    .nokia-post { background: var(--theme-color-1); width: 320px; min-height: 280px; border-radius: 25px; padding: 16px; box-shadow: 0 0 20px rgba(0,0,0,0.08); display: flex; flex-direction: column; justify-content: space-between; position: relative; color: black; font-family: 'Press Start 2P', monospace; margin: 0 auto; border: 2px solid transparent; }
+    .nokia-post .top-bar { display: flex; justify-content: space-between; align-items: center; font-size: 10px; padding-bottom: 5px; }
+    .nokia-post .time-display { min-width: 55px; }
+    .nokia-post .receiver-name { flex: 1; text-align: center; font-weight: bold; font-size: 12px; }
+    .nokia-post .right-icons { display: flex; align-items: center; gap: 6px; }
+    .nokia-post .signal { display: flex; gap: 1px; flex-direction: row; transform: scaleY(-1); }
+    .nokia-post .signal-bar { width: 3px; background: currentColor; }
+    .nokia-post .signal-bar:nth-child(1) { height: 4px; } .nokia-post .signal-bar:nth-child(2) { height: 6px; } .nokia-post .signal-bar:nth-child(3) { height: 8px; } .nokia-post .signal-bar:nth-child(4) { height: 10px; }
+    .nokia-post .battery-outline { width: 18px; height: 10px; border: 2px solid currentColor; display: flex; align-items: center; padding: 1px; position: relative; }
+    .nokia-post .battery-fill { background: currentColor; height: 6px; width: 80%; }
+    .nokia-post .battery-tip { width: 2px; height: 6px; background: currentColor; position: absolute; right: -4px; top: 1px; }
+    .nokia-post .typing-area { flex-grow: 1; max-height: 180px; margin: 10px 0; position: relative; overflow-y: auto; font-size: 10px; line-height: 16px; padding-right: 5px; white-space: pre-wrap; word-break: break-word; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.18) transparent; }
+    .nokia-post .typing-area::-webkit-scrollbar { width: 6px; background: transparent; }
+    .nokia-post .typing-area::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); border-radius: 4px; }
+    .nokia-post .rainbow-text { font: 10px 'Press Start 2P', monospace; white-space: pre-wrap; line-height: 16px; word-break: break-word; }
+    .nokia-post .meta-bar { font-size: 10px; display: flex; justify-content: space-between; margin-top: 8px; }
+    .interaction-bar { display:flex; justify-content:center; gap:10px; margin-top:10px; }
+    .interaction-bar button, .interaction-bar .views { font-size:10px; border:none; border-radius:8px; padding:5px 8px; cursor:pointer; align-self: center; }
+    .interaction-bar button:disabled { cursor: not-allowed; opacity: 0.7; }
+    .interaction-bar .like-btn { background: var(--theme-color-1); }
+    .interaction-bar .dislike-btn { background: var(--theme-color-2); }
+    .interaction-bar .report-btn { background: var(--theme-color-3); }
+    .interaction-bar .views { color:#555; cursor: default;}
+    .create-post-btn { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--theme-color-1); color: #222; font-size: 18px; font-family: 'Pacifico', cursive; border: none; border-radius: 30px; padding: 14px 38px; box-shadow: 0 2px 8px rgba(0,0,0,0.13); cursor: pointer; z-index: 100; transition: background 0.2s; }
+    .create-post-btn:hover { background: #7ed6d6; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 2000; }
+    .modal-overlay.show { display: flex; }
+    .screen { background: var(--theme-color-1); width: 320px; height: 300px; border-radius: 25px; padding: 16px; box-shadow: 0 0 20px rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: space-between; position: relative; color: black; font-family: 'Press Start 2P', monospace; }
+    .menu-bar { font-size: 10px; display: flex; justify-content: space-between; }
+    .menu-bar span { cursor: pointer; }
+    #nokia-message { width: 100%; height: 100%; resize: none; background: transparent; border: none; font-size: 10px; font-family: 'Press Start 2P', monospace; color: black; outline: none; z-index: 10; position: absolute; line-height: 16px; overflow-y: auto; caret-color: black; padding-right: 5px; }
+    .typing-area { height: 170px; margin: 10px 0; position: relative; overflow: hidden; }
+    #rainbow-text-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; font: 10px 'Press Start 2P', monospace; white-space: pre-wrap; line-height: 16px; z-index: 5; pointer-events: none; word-break: break-word; }
+    .theme-popup { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 3000; }
+    .theme-box { background: white; padding: 20px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; align-items: center; max-width: 90%; }
+    .selected-preview { width: 40px; height: 40px; border: 3px solid black; background-size: cover; background-position: center; }
+    .color-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .color-square { width: 30px; height: 30px; border: 2px solid black; cursor: pointer; }
+    .image-theme-box { width: 70px; height: 70px; border: 2px solid #007A3D; border-radius: 10px; overflow: hidden; cursor: pointer; }
+    .image-theme-box img { width: 100%; height: 100%; object-fit: cover; }
+    .close-theme { font-size: 10px; cursor: pointer; }
+    @media (max-width: 500px) { .screen, .nokia-post { width: 98vw; max-width: 340px; } .posts-list { max-width: 99vw; } }
+    .contact-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 3001; opacity: 0; pointer-events: none; transition: opacity 0.35s cubic-bezier(.4,0,.2,1); }
+    .contact-modal.show { opacity: 1; pointer-events: auto; }
+    .form-box { background: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 400px; position: relative; transform: scale(0.96) translateY(30px); opacity: 0; transition: transform 0.35s cubic-bezier(.4,0,.2,1), opacity 0.35s cubic-bezier(.4,0,.2,1); }
+    .contact-modal.show .form-box { transform: scale(1) translateY(0); opacity: 1; }
+    .form-box h2 { margin-bottom: 15px; font-size: 20px; text-align: center; }
+    .close-btn { font-size: 16px; background: transparent; color: red; border: none; cursor: pointer; position: absolute; right: 10px; top: 10px; }
+    .icon-img { width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius: 6px; object-fit: cover; }
+    .contact-links a { display: block; text-align: center; margin: 10px 0; font-size: 16px; color: #333; text-decoration: none; }
+    .contact-links a:hover { text-decoration: underline; }
+</style>
 </head>
 <body>
   <div class="header">ToYou<span>❤️</span></div>
-  <div id="menuIcon">
-    <div class="bar bar1"></div>
-    <div class="bar bar2"></div>
-    <div class="bar bar3"></div>
-  </div>
+  <div id="menuIcon"><div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div></div>
   <div id="sidePanel">
     <h3>Menu</h3>
     <ul>
-      <li id="aboutUs">About Us</li>
-      <li id="contactUs">Contact Us</li>
-      <li id="help">Help</li>
-      <li id="report">Report</li>
-      <li id="improvement">Improvement</li>
+        <li id="aboutUs">About Us</li>
+        <li id="contactUs">Contact Us</li>
+        <li id="help">Help</li>
+        <li id="report">Report</li>
+        <li id="improvement">Improvement</li>
     </ul>
   </div>
-  <div class="image-container">
-    <img src="f0.png" alt="Image f0" />
-  </div>
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search by receiver name...">
-    <button id="searchBtn">Search</button>
-  </div>
+  <div class="image-container"><img src="f0.png" alt="ToYou Logo" /></div>
+  <div class="search-bar"><input type="text" id="searchInput" placeholder="Search by receiver name..."><button id="searchBtn">Search</button></div>
   <div id="postCount"></div>
   <div class="posts-list" id="postsList"></div>
   <button class="create-post-btn" id="createPostBtn">+ Create Post</button>
-
-  <!-- Modal for Nokia Composer -->
+  
   <div class="modal-overlay" id="composerModal">
     <div>
-      <div class="screen" id="screen-box">
-        <div class="top-bar" id="top-bar">
-          <span class="time-display" id="clock">--:--</span>
-          <span class="receiver-name" id="receiver-name">To: Receiver</span>
-          <div class="right-icons">
-            <div class="signal">
-              <div class="signal-bar" style="height:10px;"></div>
-              <div class="signal-bar" style="height:8px;"></div>
-              <div class="signal-bar" style="height:6px;"></div>
-              <div class="signal-bar" style="height:4px;"></div>
+        <div class="screen" id="screen-box">
+            <div class="top-bar">
+                <span class="time-display" id="clock">--:--</span>
+                <span class="receiver-name" id="receiver-name">To: Receiver</span>
+                <div class="right-icons">
+                    <div class="signal"><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div></div>
+                    <div class="battery-outline"><div class="battery-fill"></div><div class="battery-tip"></div></div>
+                </div>
             </div>
-            <div class="battery-outline">
-              <div class="battery-fill"></div>
-              <div class="battery-tip"></div>
+            <div class="typing-area">
+                <div id="rainbow-text-overlay"></div>
+                <textarea id="nokia-message" placeholder="Type your message..."></textarea>
             </div>
-          </div>
+            <div class="menu-bar">
+                <span id="cancelBtn">Cancel</span>
+                <span id="themeBtn">Theme</span>
+                <span id="saveBtn">Save</span>
+            </div>
         </div>
-        <div class="typing-area">
-          <div class="bg-dimmer" id="bg-dimmer"></div>
-          <div id="rainbow-text-overlay"></div>
-          <textarea id="nokia-message" placeholder="Type your message..."></textarea>
+        <div class="theme-popup" id="theme-popup">
+            <div class="theme-box">
+                <div>Selected:</div>
+                <div class="selected-preview" id="selected-preview"></div>
+                <div class="color-row">
+                    <div class="color-square" style="background:#FFD1DC"></div><div class="color-square" style="background:#FFDFD3"></div><div class="color-square" style="background:#FFF5BA"></div><div class="color-square" style="background:#B5EAD7"></div><div class="color-square" style="background:#C3FBD8"></div>
+                </div>
+                <div class="color-row">
+                    <div class="color-square" style="background:#A0E7E5"></div><div class="color-square" style="background:#D0F4DE"></div><div class="color-square" style="background:#FBCFE8"></div><div class="color-square" style="background:#FFC9DE"></div><div class="color-square" style="background:#E2F0CB"></div>
+                </div>
+                <div class="color-row">
+                    <div class="image-theme-box" data-image="f1.jpg" data-textcolor="white"><img src="f1.jpg" alt="Theme"/></div>
+                    <div class="image-theme-box" data-motivation="f2.jpg"><img src="f2.jpg" alt="Theme"/></div>
+                    <div class="image-theme-box" data-image="f3.jpg" data-textcolor="white"><img src="f3.jpg" alt="Theme"/></div>
+                </div>
+                <div class="close-theme" id="closeThemeBtn">Close ⨉</div>
+            </div>
         </div>
-        <div class="menu-bar" id="menu-bar">
-          <span onclick="closeComposer()">Cancel</span>
-          <span onclick="openThemePicker()">Theme</span>
-          <span onclick="savePost()">Save</span>
-        </div>
-      </div>
-      <!-- Theme Picker -->
-      <div class="theme-popup" id="theme-popup">
-        <div class="theme-box">
-          <div>Selected:</div>
-          <div class="selected-preview" id="selected-preview"></div>
-          <div class="color-row">
-            <div class="color-square" style="background:#FFD1DC" onclick="setTheme('#FFD1DC')"></div>
-            <div class="color-square" style="background:#FFDFD3" onclick="setTheme('#FFDFD3')"></div>
-            <div class="color-square" style="background:#FFF5BA" onclick="setTheme('#FFF5BA')"></div>
-            <div class="color-square" style="background:#B5EAD7" onclick="setTheme('#B5EAD7')"></div>
-            <div class="color-square" style="background:#C3FBD8" onclick="setTheme('#C3FBD8')"></div>
-          </div>
-          <div class="color-row">
-            <div class="color-square" style="background:#A0E7E5" onclick="setTheme('#A0E7E5')"></div>
-            <div class="color-square" style="background:#D0F4DE" onclick="setTheme('#D0F4DE')"></div>
-            <div class="color-square" style="background:#FBCFE8" onclick="setTheme('#FBCFE8')"></div>
-            <div class="color-square" style="background:#FFC9DE" onclick="setTheme('#FFC9DE')"></div>
-            <div class="color-square" style="background:#E2F0CB" onclick="setTheme('#E2F0CB')"></div>
-          </div>
-          <div class="color-row">
-            <div class="color-square" style="background:#E0BBE4" onclick="setTheme('#E0BBE4')"></div>
-            <div class="color-square" style="background:#DAD0F2" onclick="setTheme('#DAD0F2')"></div>
-            <div class="color-square" style="background:#BFD7EA" onclick="setTheme('#BFD7EA')"></div>
-            <div class="color-square" style="background:#F5E1FD" onclick="setTheme('#F5E1FD')"></div>
-            <div class="color-square" style="background:#E9D5DA" onclick="setTheme('#E9D5DA')"></div>
-          </div>
-          <div class="color-row">
-            <div class="color-square" style="background:#DADADA" onclick="setTheme('#DADADA')"></div>
-            <div class="color-square" style="background:#FDFCDC" onclick="setTheme('#FDFCDC')"></div>
-            <div class="color-square" style="background:#FFDAC1" onclick="setTheme('#FFDAC1')"></div>
-            <div class="color-square" style="background:#FAF3DD" onclick="setTheme('#FAF3DD')"></div>
-            <div class="color-square" style="background:#E6E6FA" onclick="setTheme('#E6E6FA')"></div>
-          </div>
-          <div class="color-row">
-            <div class="color-square" style="background:#D5AAFF" onclick="setTheme('#D5AAFF')"></div>
-            <div class="color-square" style="background:#FFC4E1" onclick="setTheme('#FFC4E1')"></div>
-            <div class="color-square" style="background:#F1F0C0" onclick="setTheme('#F1F0C0')"></div>
-            <div class="color-square" style="background:#CDE7B0" onclick="setTheme('#CDE7B0')"></div>
-            <div class="color-square" style="background:#FFFAE3" onclick="setTheme('#FFFAE3')"></div>
-          </div>
-          <div class="color-row">
-            <div class="image-theme-box" onclick="setImageTheme('f1.jpg', 'white')"><img src="f1.jpg" alt="" /></div>
-            <div class="image-theme-box" onclick="setMotivationTheme()"><img src="f2.jpg" alt="" /></div>
-            <div class="image-theme-box" onclick="setImageTheme('f3.jpg', 'white')"><img src="f3.jpg" alt="" /></div>
-          </div>
-          <div class="close-theme" onclick="closeThemePicker()">Close ⨉</div>
-        </div>
-      </div>
     </div>
   </div>
-
   <!-- About Us Modal -->
        <div class="contact-modal" id="aboutModal">
     <div class="form-box">
@@ -724,7 +181,7 @@
       </p>
     </div>
   </div>
-  <!-- Contact Modal -->
+    <!-- Contact Modal -->
   <div class="contact-modal" id="contactModal">
     <div class="form-box">
       <button class="close-btn" onclick="closeContact()">✖</button>
@@ -739,61 +196,32 @@
       </div>
     </div>
   </div>
-    <!-- Help Modal -->
   <div class="contact-modal" id="helpModal">
     <div class="form-box">
-      <button class="close-btn" onclick="closeHelp()">✖</button>
-      <h2>Help</h2>
-      <p style="font-size:15px;line-height:1.7;">
-        <b>How to use ToYou❤️:</b><br>
-        1. Click <b>+ Create Post</b> to write your message.<br>
-        2. Choose a theme, type your message, and set the receiver's name.<br>
-        3. Click <b>Save</b> to make your message public.<br>
-        4. Use the search bar to find messages for a specific receiver.<br>
-        <br>
-        <b>Is it anonymous?</b><br>
-        Yes! You can leave your name blank or use a nickname.<br>
-        <br>
-        <b>Can I delete or edit a post?</b><br>
-        Not yet. For removal, contact the developer.
-      </p>
+        <button class="close-btn" data-modal-id="helpModal">✖</button>
+        <h2>Help</h2>
+        <p style="font-size:15px;line-height:1.7;"><b>How to use:</b><br>1. Click <b>+ Create Post</b> to write.<br>2. Set a theme, message, and receiver's name.<br>3. Click <b>Save</b> to post anonymously.<br><br><b>Can I delete/edit?</b> Not yet. Contact us for removal.</p>
     </div>
   </div>
-  <!-- Report Modal -->
   <div class="contact-modal" id="reportModal">
     <div class="form-box">
-      <button class="close-btn" onclick="closeReport()">✖</button>
-      <h2>Report</h2>
-      <p style="font-size:15px;line-height:1.7;">
-        If you see a post that is inappropriate, spam, or violates privacy:<br>
-        <ul>
-          <li>Take a screenshot of the post.</li>
-          <li>Email <b>zephyrax.co@gmail.com</b> or DM <b>@pravee.n.n.n</b> on Instagram.</li>
-          <li>Include the receiver name and message content in your report.</li>
-        </ul>
-        We will review and remove the post if necessary.
-      </p>
+        <button class="close-btn" data-modal-id="reportModal">✖</button>
+        <h2>Report</h2>
+        <p>Find an inappropriate post? Please take a screenshot and email it to <b>zephyrax.co@gmail.com</b> or DM <b>@pravee.n.n.n</b> on Instagram with the post details.</p>
     </div>
   </div>
-  <!-- Improvement Modal -->
   <div class="contact-modal" id="improvementModal">
     <div class="form-box">
-      <button class="close-btn" onclick="closeImprovement()">✖</button>
-      <h2>Improvement</h2>
-      <p style="font-size:15px;line-height:1.7;">
-        Have an idea to make ToYou❤️ better?<br>
-        <ul>
-          <li>Suggest new features or improvements.</li>
-          <li>Email <b>zephyrax.co@gmail.com</b> or DM <b>@pravee.n.n.n</b> on Instagram.</li>
-        </ul>
-        Your feedback is always welcome!
-      </p>
+        <button class="close-btn" data-modal-id="improvementModal">✖</button>
+        <h2>Improvement</h2>
+        <p>Have an idea to make ToYou❤️ better? We'd love to hear it! Email <b>zephyrax.co@gmail.com</b> or DM <b>@pravee.n.n.n</b> on Instagram.</p>
     </div>
   </div>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+<script type="module">
+// --- FIREBASE SETUP ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = {
   apiKey: "AIzaSyBwEhCK0dpslmSHdL6OsAqJUM7ZUmtLqvU",
   authDomain: "toyou-a80b2.firebaseapp.com",
@@ -805,245 +233,304 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// --- DOM ELEMENTS & STATE ---
 const postsList = document.getElementById('postsList');
 const postCount = document.getElementById('postCount');
 const searchInput = document.getElementById('searchInput');
-const searchBtn = document.getElementById('searchBtn');
 const createPostBtn = document.getElementById('createPostBtn');
 const composerModal = document.getElementById('composerModal');
-const receiverName = document.getElementById('receiver-name');
+const receiverNameEl = document.getElementById('receiver-name');
 const nokiaMessage = document.getElementById('nokia-message');
 const clock = document.getElementById('clock');
-const overlay = document.getElementById("rainbow-text-overlay");
-const dimmer = document.getElementById("bg-dimmer");
+const rainbowOverlay = document.getElementById('rainbow-text-overlay');
 
 let currentTheme = { type: "color", value: "#A0E7E5", textColor: "black" };
-let rainbowMode = false;
-
-function updateClock() {
-  const now = new Date();
-  clock.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-receiverName.addEventListener("click", function () {
-  const name = prompt("Enter receiver name:", receiverName.textContent.replace(/^To:\s*/, ""));
-  if (name !== null && name.trim()) {
-    receiverName.textContent = "To: " + name.trim();
-  }
-});
-
-function setUIColor(color) {
-  clock.style.color = color;
-  receiverName.style.color = color;
-  document.getElementById("menu-bar").style.color = color;
-  document.getElementById("top-bar").style.color = color;
-  document.getElementById("screen-box").style.color = color;
-}
-window.setTheme = function(color) {
-  document.getElementById("screen-box").style.background = color;
-  setUIColor("black");
-  dimmer.style.display = "none";
-  nokiaMessage.style.color = "black";
-  nokiaMessage.style.caretColor = "black";
-  overlay.innerHTML = "";
-  nokiaMessage.removeEventListener("input", rainbowHandler);
-  document.getElementById("selected-preview").style.background = color;
-  currentTheme = { type: "color", value: color, textColor: "black" };
-  rainbowMode = false;
-}
-window.setImageTheme = function(img, textColor = "white") {
-  const bg = `url(${img}) center/cover no-repeat`;
-  document.getElementById("screen-box").style.background = bg;
-  setUIColor(textColor);
-  dimmer.style.display = "none";
-  nokiaMessage.style.color = textColor;
-  nokiaMessage.style.caretColor = textColor;
-  overlay.innerHTML = "";
-  nokiaMessage.removeEventListener("input", rainbowHandler);
-  document.getElementById("selected-preview").style.background = bg;
-  currentTheme = { type: "image", value: img, textColor };
-  rainbowMode = false;
-}
-window.setMotivationTheme = function() {
-  const bg = "url(f2.jpg) center/cover no-repeat";
-  document.getElementById("screen-box").style.background = bg;
-  setUIColor("black");
-  dimmer.style.display = "block";
-  nokiaMessage.style.color = "transparent";
-  nokiaMessage.style.caretColor = "black";
-  nokiaMessage.addEventListener("input", rainbowHandler);
-  document.getElementById("selected-preview").style.background = bg;
-  currentTheme = { type: "motivation", value: "f2.jpg", textColor: "black" };
-  rainbowMode = true;
-  rainbowHandler();
-}
-function rainbowHandler() {
-  const text = nokiaMessage.value;
-  const colors = ['#FF6584', '#6CA0DC', '#E6D1F2', '#FFE066'];
-  overlay.innerHTML = [...text].map((c, i) => `<span style="color:${colors[i % colors.length]}">${c}</span>`).join('');
-}
-window.openThemePicker = function() {
-  document.getElementById("theme-popup").style.display = "flex";
-}
-window.closeThemePicker = function() {
-  document.getElementById("theme-popup").style.display = "none";
-}
-
-createPostBtn.onclick = () => {
-  composerModal.classList.add('show');
-  resetComposer();
-};
-window.closeComposer = function() {
-  composerModal.classList.remove('show');
-}
-function resetComposer() {
-  receiverName.textContent = "To: Receiver";
-  nokiaMessage.value = "";
-  setTheme('#A0E7E5');
-  overlay.innerHTML = "";
-  dimmer.style.display = "none";
-}
-
-window.savePost = async function() {
-  const receiver = receiverName.textContent.replace(/^To:\s*/, "").trim();
-  const message = nokiaMessage.value.trim();
-  if (!receiver || !message) {
-    alert("Please enter both receiver and message!");
-    return;
-  }
-  let sender = prompt("Enter your name (optional):", "");
-  if (sender === null) return;
-  sender = sender.trim();
-  const postData = {
-    receiver,
-    message,
-    sender: sender || "Anonymous",
-    theme: currentTheme,
-    rainbow: rainbowMode,
-    created: new Date().toISOString()
-  };
-  try {
-    await addDoc(collection(db, "messages"), postData);
-    closeComposer();
-  } catch (e) {
-    alert("Error saving post: " + e.message);
-  }
-};
-function renderPosts(posts, searchTerm = "") {
-  postsList.innerHTML = "";
-  if (posts.length === 0) {
-    if (searchTerm) {
-      postCount.innerHTML = `Posts for "<b>${searchTerm}</b>": 0`;
-      postsList.innerHTML = `<div style="text-align:center;color:#aaa;font-size:16px;margin-top:30px;">No posts found for "<b>${searchTerm}</b>".</div>`;
-    } else {
-      postCount.innerHTML = `Total posts: 0`;
-      postsList.innerHTML = `<div style="text-align:center;color:#aaa;font-size:16px;margin-top:30px;">No posts yet.</div>`;
-    }
-    return;
-  }
-  if (searchTerm) {
-    postCount.innerHTML = `Posts for "<b>${searchTerm}</b>": ${posts.length}`;
-  } else {
-    postCount.innerHTML = `Total posts: ${posts.length}`;
-  }
-  for (const post of posts) {
-    const div = document.createElement('div');
-    div.className = "nokia-post";
-    // Determine text and icon color
-    let isWhiteTheme = (post.theme?.type === "image" && (post.theme?.value === "f1.jpg" || post.theme?.value === "f3.jpg"));
-    let textColor = isWhiteTheme ? "#fff" : "#111";
-    let iconColor = isWhiteTheme ? "#fff" : "#111";
-    // Set background
-    let style = "";
-    if (post.theme?.type === "color") {
-      style = `background:${post.theme.value};color:${textColor};`;
-    } else if (post.theme?.type === "image" || post.theme?.type === "motivation") {
-      style = `background:url('${post.theme.value}') center/cover no-repeat;color:${textColor};`;
-    }
-    // Rainbow text
-    let msgHTML = "";
-    if (post.rainbow) {
-      const colors = isWhiteTheme
-        ? ['#fff', '#fff', '#fff', '#fff']
-        : ['#111', '#111', '#111', '#111'];
-      msgHTML = `<span class="rainbow-text">` + [...post.message].map((c, i) => `<span style="color:${colors[i % colors.length]}">${c}</span>`).join('') + `</span>`;
-    } else {
-      msgHTML = `<span style="color:${textColor};">${post.message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>`;
-    }
-    // Date and time in 12-hour format
-    let dateStr = "", time12 = "", dateOnly = "";
-    if (post.created) {
-      const d = new Date(post.created);
-      time12 = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: true });
-      dateOnly = d.toLocaleDateString([], { dateStyle: "medium" });
-    }
-    div.innerHTML = `
-      <div class="top-bar" style="color:${textColor};">
-        <span class="time-display" style="color:${textColor};">${time12 || '--:--'}</span>
-        <span class="receiver-name" style="color:${textColor};">To: ${post.receiver}</span>
-        <div class="right-icons">
-          <div class="signal" style="color:${iconColor};">
-            <div class="signal-bar" style="height:10px;"></div>
-            <div class="signal-bar" style="height:8px;"></div>
-            <div class="signal-bar" style="height:6px;"></div>
-            <div class="signal-bar" style="height:4px;"></div>
-          </div>
-          <div class="battery-outline" style="color:${iconColor};border-color:${iconColor};">
-            <div class="battery-fill" style="background:${iconColor};"></div>
-            <div class="battery-tip" style="background:${iconColor};"></div>
-          </div>
-        </div>
-      </div>
-      <div class="typing-area" style="color:${textColor};">
-        ${msgHTML}
-      </div>
-      <div class="meta-bar" style="color:${textColor};">
-        <span>By: ${post.sender || "Anonymous"}</span>
-        <span>${dateOnly || ''}</span>
-      </div>
-      <div style="text-align:center;font-size:12px;color:${textColor};margin-top:6px;font-family:'Pacifico',cursive;">
-        #ToYou❤️
-      </div>
-    `;
-    div.style = style;
-    postsList.appendChild(div);
-  }
-}
-
+let isRainbowMode = false;
 let allPosts = [];
-function filterAndRender() {
-  const q = searchInput.value.trim().toLowerCase();
-  if (!q) {
-    renderPosts(allPosts, "");
-  } else {
-    renderPosts(allPosts.filter(p => p.receiver.toLowerCase().includes(q)), q);
+
+// --- UTILITIES ---
+function escapeHTML(str) {
+    const p = document.createElement("p");
+    p.textContent = str;
+    return p.innerHTML;
+}
+
+function generateFakePosts() {
+    const receivers = ["Luna", "Leo", "Mia", "Kai", "Zoe", "Alex", "Nora", "Praveen", "Rhea", "Sam", "My Love", "Bestie", "Crush"];
+    const messages = ["I still think about our late night talks.", "Just wanted to say you're one of the kindest people I've ever met.", "Do you remember our silly inside jokes?", "I miss how simple things felt with you.", "Your laugh is contagious. Never lose that.", "Heard our favorite song and it made me think of you.", "Wishing you all the happiness in the world."];
+    const senders = ["A friend", "Someone from the past", "An admirer", "Guess who?", "Anonymous"];
+    const themes = [{ type: "color", value: "#FFD1DC", textColor: "black" }, { type: "color", value: "#B5EAD7", textColor: "black" }, { type: "color", value: "#A0E7E5", textColor: "black" }, { type: "image", value: "f1.jpg", textColor: "white" }];
+    
+    return Array.from({ length: 20 }, (_, i) => ({
+        id: `fake_${i}`,
+        receiver: receivers[Math.floor(Math.random() * receivers.length)],
+        message: messages[Math.floor(Math.random() * messages.length)],
+        sender: senders[Math.floor(Math.random() * senders.length)],
+        theme: themes[Math.floor(Math.random() * themes.length)],
+        rainbow: Math.random() > 0.85,
+        created: new Date(Date.now() - i * 3600000 * 2).toISOString(),
+        views: Math.floor(Math.random() * 250),
+        likes: Math.floor(Math.random() * 60),
+        dislikes: Math.floor(Math.random() * 5),
+    }));
+}
+
+// --- CORE RENDERING FUNCTION ---
+function renderPosts(postsToRender, searchTerm = "") {
+  postsList.innerHTML = "";
+  
+  if (postsToRender.length === 0) {
+    const safeTerm = escapeHTML(searchTerm);
+    postCount.innerHTML = searchTerm ? `Posts for "<b>${safeTerm}</b>": 0` : "No posts yet. Be the first!";
+    postsList.innerHTML = `<div style="text-align:center;color:#aaa;font-size:16px;margin-top:30px;">${searchTerm ? `No posts found for "<b>${safeTerm}</b>".` : 'Write a message to get started!'}</div>`;
+    return;
+  }
+  
+  postCount.innerHTML = searchTerm ? `Posts for "<b>${escapeHTML(searchTerm)}</b>": ${postsToRender.length}` : `Total posts: ${allPosts.length}`;
+
+  for (const post of postsToRender) {
+    const postWrapper = document.createElement('div');
+    postWrapper.className = 'post-wrapper';
+    
+    const postDiv = document.createElement('div');
+    postDiv.className = "nokia-post";
+    postDiv.dataset.postId = post.id;
+
+    const textColor = post.theme?.textColor || "black";
+    postDiv.style.color = textColor;
+    postDiv.style.borderColor = post.theme.type === 'color' ? post.theme.value : 'transparent';
+    if (post.theme.type === "color") postDiv.style.backgroundColor = post.theme.value;
+    else if (post.theme.type === "image") {
+      postDiv.style.backgroundImage = `url('${post.theme.value}')`;
+      postDiv.style.backgroundSize = 'cover';
+      postDiv.style.backgroundPosition = 'center';
+    }
+
+    const time = new Date(post.created).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: true });
+    const date = new Date(post.created).toLocaleDateString([], { dateStyle: "medium" });
+    
+    const msgHTML = post.rainbow
+      ? `<div class="rainbow-text">${[...post.message].map((c, i) => `<span style="color:${['#FF6584', '#6CA0DC', '#E6D1F2', '#FFE066'][i % 4]}">${escapeHTML(c)}</span>`).join('')}</div>`
+      : escapeHTML(post.message);
+    
+    postDiv.innerHTML = `
+      <div class="top-bar"><span class="time-display">${time}</span><span class="receiver-name">${escapeHTML("To: " + post.receiver)}</span><div class="right-icons"><div class="signal"><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div></div><div class="battery-outline" style="border-color: ${textColor}"><div class="battery-fill" style="background: ${textColor}"></div><div class="battery-tip" style="background: ${textColor}"></div></div></div></div>
+      <div class="typing-area">${msgHTML}</div>
+      <div class="meta-bar"><span>${escapeHTML("By: " + (post.sender || "Anonymous"))}</span><span>${date}</span></div>
+      <div style="text-align:center;font-size:12px;margin-top:6px;font-family:'Pacifico',cursive;">#ToYou❤️</div>
+    `;
+
+    const interactionBar = document.createElement('div');
+    interactionBar.className = 'interaction-bar';
+
+    const likeBtn = document.createElement('button');
+    likeBtn.className = 'like-btn';
+    likeBtn.dataset.count = post.likes || 0;
+    likeBtn.innerHTML = `❤️ Like <span>(${post.likes || 0})</span>`;
+    likeBtn.addEventListener('click', (e) => handleInteraction(e, post.id, 'like'));
+
+    const dislikeBtn = document.createElement('button');
+    dislikeBtn.className = 'dislike-btn';
+    dislikeBtn.dataset.count = post.dislikes || 0;
+    dislikeBtn.innerHTML = `💔 Dislike <span>(${post.dislikes || 0})</span>`;
+    dislikeBtn.addEventListener('click', (e) => handleInteraction(e, post.id, 'dislike'));
+
+    const reportBtn = document.createElement('button');
+    reportBtn.className = 'report-btn';
+    reportBtn.innerHTML = '⚠️ Report';
+    reportBtn.addEventListener('click', () => reportPost(post.id, post.receiver));
+    
+    const viewsSpan = document.createElement('span');
+    viewsSpan.className = 'views';
+    viewsSpan.innerHTML = `👁 ${post.views || 0}`;
+
+    interactionBar.append(likeBtn, dislikeBtn, reportBtn, viewsSpan);
+    postWrapper.append(postDiv, interactionBar);
+    postsList.appendChild(postWrapper);
+    
+    viewObserver.observe(postDiv);
   }
 }
+
+// --- DATA & VIEW LOGIC ---
+const initialFakePosts = generateFakePosts();
 onSnapshot(query(collection(db, "messages"), orderBy("created", "desc")), (snapshot) => {
-  allPosts = [];
-  snapshot.forEach(doc => allPosts.push(doc.data()));
+  const firebasePosts = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+  allPosts = [...initialFakePosts, ...firebasePosts].sort((a, b) => new Date(b.created) - new Date(a.created));
   filterAndRender();
 });
 
-searchInput.addEventListener("input", filterAndRender);
-searchBtn.addEventListener("click", filterAndRender);
+function filterAndRender() {
+  const q = searchInput.value.trim().toLowerCase();
+  const filtered = q ? allPosts.filter(p => p.receiver.toLowerCase().includes(q)) : allPosts;
+  renderPosts(filtered, q);
+}
 
-setTheme('#A0E7E5');
+// --- INTERACTION LOGIC (WITH SESSION & FAKE POST HANDLING) ---
+const viewObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const postId = entry.target.dataset.postId;
+            if (postId) {
+                let viewedPosts = [];
+                try {
+                    viewedPosts = JSON.parse(sessionStorage.getItem('viewedPosts') || '[]');
+                } catch (e) {
+                    console.warn("Could not parse sessionStorage 'viewedPosts'");
+                    sessionStorage.removeItem('viewedPosts');
+                }
 
-composerModal.addEventListener("mousedown", function(e) {
-  if (e.target === composerModal) closeComposer();
-});
+                if (!viewedPosts.includes(postId)) {
+                    viewedPosts.push(postId);
+                    try {
+                        sessionStorage.setItem('viewedPosts', JSON.stringify(viewedPosts));
+                    } catch(e) {
+                        console.warn("Could not save to sessionStorage");
+                    }
+                    if (!postId.startsWith('fake_')) {
+                        updateDoc(doc(db, "messages", postId), { views: increment(1) }).catch(console.error);
+                    }
+                }
+                viewObserver.unobserve(entry.target);
+            }
+        }
+    });
+}, { threshold: 0.5 });
 
-const menuIcon = document.getElementById('menuIcon');
-const sidePanel = document.getElementById('sidePanel');
-menuIcon.addEventListener('click', () => {
-  menuIcon.classList.toggle('open');
-  sidePanel.classList.toggle('open');
-});
+async function handleInteraction(event, id, type) {
+    const btn = event.currentTarget;
+    const countSpan = btn.querySelector('span');
 
-// Modal open/close with animation
+    if (!countSpan) return;
+
+    btn.disabled = true;
+
+    if (id.startsWith('fake_')) {
+        const currentCount = parseInt(btn.dataset.count || 0);
+        const newCount = currentCount + 1;
+        btn.dataset.count = newCount;
+        countSpan.textContent = `(${newCount})`;
+        return; // For fake posts, we only do the visual update and disable.
+    }
+
+    const field = type === 'like' ? 'likes' : 'dislikes';
+    try {
+        await updateDoc(doc(db, "messages", id), { [field]: increment(1) });
+    } catch (err) {
+        console.error(`${type} error:`, err);
+        btn.disabled = false; // Re-enable only if there's an error
+    }
+    // No 'finally' block needed. Real-time listener will update the count and re-enable button on its own.
+}
+
+function reportPost(id, receiver) {
+  if (id.startsWith('fake_')) { alert("This is a sample post and cannot be reported."); return; }
+  const subject = encodeURIComponent("Report: ToYou❤️ Post");
+  const body = encodeURIComponent(`I am reporting a post.\n\nPost ID: ${id}\nReceiver: ${receiver}\n\nReason:`);
+  window.open(`mailto:zephyrax.co@gmail.com?subject=${subject}&body=${body}`);
+  updateDoc(doc(db, "messages", id), { reports: increment(1) }).catch(()=>{});
+}
+
+// --- UI INITIALIZATION ---
+function initApp() {
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    searchInput.addEventListener("input", filterAndRender);
+    createPostBtn.addEventListener('click', () => composerModal.classList.add('show'));
+
+    document.getElementById('menuIcon').addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle('open');
+        document.getElementById('sidePanel').classList.toggle('open');
+    });
+    ['aboutUs','contactUs','help','report','improvement'].forEach(id => {
+        document.getElementById(id).addEventListener('click', () => document.getElementById(id+'Modal').classList.add('show'));
+    });
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => document.getElementById(e.currentTarget.dataset.modalId).classList.remove('show'));
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', () => composerModal.classList.remove('show'));
+    document.getElementById('saveBtn').addEventListener('click', savePost);
+    document.getElementById('themeBtn').addEventListener('click', () => document.getElementById("theme-popup").style.display = "flex");
+    document.getElementById('closeThemeBtn').addEventListener('click', () => document.getElementById("theme-popup").style.display = "none");
+    composerModal.addEventListener("mousedown", (e) => { if (e.target === composerModal) composerModal.classList.remove('show'); });
+    receiverNameEl.addEventListener("click", () => {
+        const name = prompt("Enter receiver's name:", receiverNameEl.textContent.replace(/^To:\s*/, ''));
+        if (name && name.trim()) { receiverNameEl.textContent = "To: " + name.trim(); }
+    });
+    nokiaMessage.addEventListener('input', () => { if(isRainbowMode) rainbowHandler(); });
+    
+    document.querySelectorAll('.color-square').forEach(sq => sq.addEventListener('click', () => setTheme(sq.style.backgroundColor)));
+    document.querySelectorAll('.image-theme-box').forEach(box => {
+        box.addEventListener('click', () => {
+            if (box.dataset.image) setImageTheme(box.dataset.image, box.dataset.textcolor);
+            else if (box.dataset.motivation) setMotivationTheme();
+        });
+    });
+}
+
+async function savePost() {
+  const receiver = receiverNameEl.textContent.replace(/^To:\s*/, "").trim();
+  const message = nokiaMessage.value.trim();
+  if (!receiver || receiver.toLowerCase() === 'receiver' || !message) {
+    alert("Please enter a valid receiver's name and a message!");
+    return;
+  }
+  let sender = prompt("Enter your name (optional, leave blank for Anonymous):", "");
+  if (sender === null) return;
+  const postData = { receiver, message, sender: sender.trim() || "Anonymous", theme: currentTheme, rainbow: isRainbowMode, created: new Date().toISOString(), views: 0, likes: 0, dislikes: 0, reports: 0 };
+  
+  const saveButton = document.getElementById('saveBtn');
+  try {
+    saveButton.textContent = 'Saving...';
+    saveButton.style.pointerEvents = 'none';
+    await addDoc(collection(db, "messages"), postData);
+    composerModal.classList.remove('show');
+    nokiaMessage.value = "";
+    receiverNameEl.textContent = "To: Receiver";
+  } catch (e) {
+    alert("Error saving post: " + e.message);
+  } finally {
+    saveButton.textContent = 'Save';
+    saveButton.style.pointerEvents = 'auto';
+  }
+}
+
+// --- THEME FUNCTIONS ---
+function updateClock() { clock.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}); }
+function setTheme(color) {
+    const screenBox = document.getElementById("screen-box");
+    screenBox.style.background = color; screenBox.style.color = 'black';
+    nokiaMessage.style.color = "black"; nokiaMessage.style.caretColor = "black";
+    rainbowOverlay.innerHTML = "";
+    isRainbowMode = false;
+    document.getElementById("selected-preview").style.background = color;
+    currentTheme = { type: "color", value: color, textColor: "black" };
+}
+function setImageTheme(img, textColor) {
+    const screenBox = document.getElementById("screen-box");
+    const bg = `url(${img}) center/cover no-repeat`;
+    screenBox.style.background = bg; screenBox.style.color = textColor;
+    nokiaMessage.style.color = textColor; nokiaMessage.style.caretColor = textColor;
+    rainbowOverlay.innerHTML = "";
+    isRainbowMode = false;
+    document.getElementById("selected-preview").style.background = bg;
+    currentTheme = { type: "image", value: img, textColor };
+}
+function setMotivationTheme() {
+    setImageTheme('f2.jpg', 'black');
+    isRainbowMode = true;
+    nokiaMessage.style.color = "transparent";
+    rainbowHandler();
+}
+function rainbowHandler() {
+    rainbowOverlay.innerHTML = [...nokiaMessage.value].map((c, i) => `<span style="color:${['#FF6584', '#6CA0DC', '#E6D1F2', '#FFE066'][i % 4]}">${escapeHTML(c)}</span>`).join('');
+}
+
+// Initialize the application once the DOM is ready
+initApp();
+  // Modal open/close with animation
 function showModal(id) {
   document.getElementById(id).classList.add("show");
 }
@@ -1071,161 +558,5 @@ document.addEventListener('mousedown', function(e) {
   });
 });
 </script>
-      
 </body>
 </html>
-<!-- =================================================================== -->
-<!-- === CUTE ANIMATED MAINTENANCE OVERLAY - PASTE THIS BLOCK IN === -->
-<!-- =================================================================== -->
-<style>
-    /* A cute, rounded font */
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
-
-    #maintenance-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(250, 235, 240, 0.95); /* A slightly softer pink */
-        backdrop-filter: blur(6px);
-        font-family: 'Nunito', sans-serif;
-    }
-
-    .maintenance-box {
-        background: #ffffff;
-        padding: 40px;
-        border-radius: 25px;
-        box-shadow: 0 10px 40px rgba(210, 150, 160, 0.2);
-        text-align: center;
-        max-width: 90%;
-        width: 500px;
-        animation: fade-in 0.5s ease-out;
-        position: relative; /* Needed for positioning the new animations */
-    }
-    
-    .character-container {
-        position: relative;
-        width: 150px;
-        height: 150px;
-        margin: 0 auto 15px auto;
-        /* ✨ NEW: Softer float animation */
-        animation: softer-float 3s infinite alternate ease-in-out;
-    }
-
-    .character-container .cute-character {
-        width: 100%;
-        position: relative;
-        z-index: 2; /* Make sure character is above sparkles */
-    }
-
-    /* 😊 NEW: Blushing Cheeks Animation */
-    .character-container .blush {
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        background: rgba(255, 105, 180, 0.5); /* Hot pink, but semi-transparent */
-        border-radius: 50%;
-        z-index: 3; /* On top of the character */
-        top: 55%;
-        filter: blur(5px);
-        animation: blush-effect 1.5s infinite alternate ease-in-out;
-    }
-    .character-container .blush.left { left: 18%; }
-    .character-container .blush.right { right: 18%; }
-
-    /* ✨ NEW: Sparkles Animation */
-    .sparkle {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        width: 8px;
-        height: 8px;
-        background: #ffd700;
-        border-radius: 50%;
-        opacity: 0;
-        z-index: 1; /* Behind the character */
-        animation: sparkle-float 2s infinite ease-out;
-    }
-    .sparkle::before {
-        content: '+';
-        position: absolute;
-        top: -10px; left: -10px;
-        font-size: 14px;
-        color: #ffc0cb;
-    }
-    /* Add delay to each sparkle */
-    .sparkle:nth-child(2) { animation-delay: 0.5s; left: 40%; }
-    .sparkle:nth-child(3) { animation-delay: 1s; left: 60%; }
-    .sparkle:nth-child(4) { animation-delay: 1.5s; left: 45%; }
-
-    .maintenance-box h1 {
-        font-size: 2.2rem;
-        font-weight: 800;
-        color: #d16075;
-        margin: 0 0 15px 0;
-    }
-
-    .maintenance-box p {
-        font-size: 1.1rem;
-        color: #555;
-        line-height: 1.6;
-    }
-    
-    /* --- ALL THE CUTE KEYFRAME ANIMATIONS --- */
-    @keyframes fade-in {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes softer-float {
-        from { transform: translateY(-6px) rotate(-2deg); }
-        to { transform: translateY(6px) rotate(2deg); }
-    }
-    @keyframes blush-effect {
-        from { transform: scale(0.8); opacity: 0.5; }
-        to { transform: scale(1.1); opacity: 0.8; }
-    }
-    @keyframes sparkle-float {
-        0% { transform: translateY(0) scale(0.5); opacity: 0.7; }
-        100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
-    }
-</style>
-
-<div id="maintenance-overlay">
-    <div class="maintenance-box">
-
-        <div class="character-container">
-            <!-- 
-              !!! IMPORTANT !!!
-              REPLACE THE SLEEPY CLOUD BELOW WITH YOUR CUTE ABUNA.
-              Just change the src="..." to the path of your image.
-            -->
-            <img src="https://api.iconify.design/ph:cloud-moon-bold.svg?color=%23b2dffc" alt="Cute Mascot" class="cute-character">
-            
-            <!-- You can also use a local image file like this: -->
-            <!-- <img src="/images/your-abuna.png" alt="Cute Abuna" class="cute-character"> -->
-
-            <!-- 😊 New! Blushing Cheeks -->
-            <div class="blush left"></div>
-            <div class="blush right"></div>
-            
-            <!-- ✨ New! Animated Sparkles -->
-            <div class="sparkles-container">
-                <span class="sparkle"></span>
-                <span class="sparkle"></span>
-                <span class="sparkle"></span>
-                <span class="sparkle"></span>
-            </div>
-        </div>
-
-        <h1>Taking a short nap...</h1>
-        <p>
-            Our website is dreaming of cute new features! We're working on some magic behind the scenes and will be back before you know it.
-        </p>
-    </div>
-</div>
-<!-- ================================================================= -->
-<!-- === END OF OVERLAY BLOCK - DELETE THIS WHEN YOU ARE DONE === -->
-<!-- ================================================================= -->

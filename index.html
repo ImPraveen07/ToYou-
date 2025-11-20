@@ -592,147 +592,83 @@ document.addEventListener('mousedown', function(e) {
      crossorigin="anonymous"></script>
 <!-- 🌟 Inject manifest inline -->
 <script>
-  const manifest = {
-    name: "To You",
-    short_name: "ToYou",
-    start_url: "./",
-    display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#ffffff",
-    icons: [
-      {
-        src: "ToYou_icon.jpg",
-        sizes: "192x192",
-        type: "image/jpeg"
-      },
-      {
-        src: "ToYou_icon.jpg",
-        sizes: "512x512",
-        type: "image/jpeg"
-      }
-    ]
-  };
-  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('link');
-  link.rel = 'manifest';
-  link.href = url;
-  document.head.appendChild(link);
-</script>
-
-<!-- 🌟 Inline service worker -->
-<script>
-  const swCode = `
-    self.addEventListener('install', e => self.skipWaiting());
-    self.addEventListener('activate', e => self.clients.claim());
-    self.addEventListener('fetch', () => {});
-  `;
-  const swBlob = new Blob([swCode], { type: 'text/javascript' });
-  const swUrl = URL.createObjectURL(swBlob);
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(swUrl)
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.warn('❌ SW registration failed:', err));
-  }
-</script>
-
-<!-- 🌟 Install banner for Android/Chrome -->
-<style>
-  #installBanner {
-    position: fixed;
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
-    max-width: 520px;
-    margin: 0 auto;
-    background: #111;
-    color: #fff;
-    padding: 12px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    transform: translateY(120%);
-    transition: transform .35s ease;
-    z-index: 99999;
-    font-family: system-ui, Arial, sans-serif;
-  }
-  #installBanner.show { transform: translateY(0); }
-  #installBanner .label { display:flex; align-items:center; gap:10px; font-size:15px; }
-  #installBanner img { width:42px; height:42px; border-radius:8px; object-fit:cover; }
-  #installBanner button {
-    background:#fff; color:#000; border:none; padding:8px 14px; border-radius:10px;
-    font-weight:600; cursor:pointer;
-  }
-  #installDismiss {
-    background:transparent;
-    color:#ddd;
-    border:none;
-    font-size:13px;
-    cursor:pointer;
-    margin-left:8px;
-  }
-</style>
-
-<div id="installBanner" aria-hidden="true">
-  <div class="label">
-    <img src="ToYou_icon.jpg" alt="To You icon">
-    <div>
-      <div style="font-weight:700;">Install <span style="font-weight:900;">To You</span></div>
-      <div style="font-size:12px; opacity:0.85;">Add To You to your home screen</div>
-    </div>
-  </div>
-  <div style="display:flex; align-items:center;">
-    <button id="installButton">Install</button>
-    <button id="installDismiss">Dismiss</button>
-  </div>
-</div>
-
-<script>
-  let deferredPrompt = null;
-  const banner = document.getElementById('installBanner');
-  const installBtn = document.getElementById('installButton');
-  const dismissBtn = document.getElementById('installDismiss');
-
-  // Chrome / Edge only
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault(); // Suppress default mini-infobar
-    if (localStorage.getItem('pwaInstallDismissed') === '1') return;
-    deferredPrompt = e;
-    banner.setAttribute('aria-hidden', 'false');
-    banner.classList.add('show');
-  });
-
-  installBtn.addEventListener('click', async () => {
-    banner.classList.remove('show');
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
+// ✅ 1. Inject manifest as Blob into head
+const manifest = {
+  name: "ToYou❤️",
+  short_name: "ToYou",
+  start_url: ".",
+  display: "standalone",
+  background_color: "#ffffff",
+  theme_color: "#ffffff",
+  icons: [
+    {
+      src: "ToYou_icon.jpg", // ⛔️ must exist and be 192x192
+      sizes: "192x192",
+      type: "image/jpeg"
+    },
+    {
+      src: "ToYou_icon.jpg", // ⛔️ must also support 512x512 if possible
+      sizes: "512x512",
+      type: "image/jpeg"
     }
-  });
+  ]
+};
 
-  dismissBtn.addEventListener('click', () => {
-    banner.classList.remove('show');
-    localStorage.setItem('pwaInstallDismissed', '1');
-  });
+const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+const manifestURL = URL.createObjectURL(manifestBlob);
+const manifestLink = document.createElement("link");
+manifestLink.rel = "manifest";
+manifestLink.href = manifestURL;
+document.head.appendChild(manifestLink);
 </script>
 
-<!-- 🌟 iOS Manual Install Prompt -->
 <script>
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+// ✅ 2. Simple Service Worker
+const swCode = `
+  self.addEventListener("install", e => self.skipWaiting());
+  self.addEventListener("activate", e => self.clients.claim());
+  self.addEventListener("fetch", e => {});
+`;
 
-  if (isIOS && isSafari && !window.navigator.standalone && !localStorage.getItem('iosHintDismissed')) {
-    setTimeout(() => {
-      // Hint: Replace with styled modal or banner if you want
-      alert("To add this app to your iPhone:\n• Tap the Share button\n• Choose 'Add to Home Screen'");
-      localStorage.setItem('iosHintDismissed', '1');
-    }, 3000);
-  }
+const swBlob = new Blob([swCode], { type: "text/javascript" });
+const swURL = URL.createObjectURL(swBlob);
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register(swURL)
+    .then(() => console.log("[SW] Service worker registered via blob"))
+    .catch((err) => console.warn("[SW] Failed:", err));
+}
+</script>
+
+<script>
+// ✅ 3. Show install banner (only if not dismissed)
+let deferredPrompt = null;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log("[PWA] Install prompt available");
+
+  // Optional: auto-prompt instead of banner
+  setTimeout(async () => {
+    deferredPrompt.prompt();
+    const choiceResult = await deferredPrompt.userChoice;
+    console.log("User response to install:", choiceResult);
+    deferredPrompt = null;
+  }, 2000);
+});
+</script>
+
+<script>
+// ✅ 4. (Bonus) iOS install tip
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+if (isIOS && isSafari && !window.navigator.standalone) {
+  setTimeout(() => {
+    alert("Install ToYou❤️ on your iPhone:\n• Tap Share → Add to Home Screen 📱");
+  }, 2500);
+}
 </script>
 </body>
 </html>

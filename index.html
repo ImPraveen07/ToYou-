@@ -611,7 +611,7 @@ document.addEventListener('mousedown', function(e) {
       .catch((err) => console.warn('SW registration failed:', err));
   }
 </script>
-  <!-- Bottom install banner (UI + behavior) -->
+<!-- Bottom install banner (UI + behavior) -->
 <style>
   #installBanner {
     position: fixed;
@@ -670,7 +670,31 @@ document.addEventListener('mousedown', function(e) {
     deferredPrompt = e;            // stash the event
     // show your bottom banner
     banner.setAttribute('aria-hidden', 'false');
-    banner.classList
+    banner.classList.add('show');
+  });
+
+  // Install button
+  installBtn.addEventListener('click', async () => {
+    banner.classList.remove('show');
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const choice = await deferredPrompt.userChoice;
+    console.log('User choice:', choice);
+    deferredPrompt = null;
+  });
+
+  // Dismiss button
+  dismissBtn.addEventListener('click', () => {
+    banner.classList.remove('show');
+    // optionally remember dismissal (localStorage) so you don't show again:
+    localStorage.setItem('pwaInstallDismissed', '1');
+  });
+
+  // Optional: don't show if user previously dismissed
+  if (localStorage.getItem('pwaInstallDismissed')) {
+    // do nothing — banner won't be shown
+  }
+</script>
 </body>
 </html>
                 

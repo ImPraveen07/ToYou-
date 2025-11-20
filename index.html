@@ -14,7 +14,10 @@
   <meta name="twitter:title" content="ToYou❤️ - Send your unsent messages" />
   <meta name="twitter:description" content="Share your true feelings anonymously. Send a message to anyone, anytime. #ToYou❤️" />
   <meta name="twitter:image" content="https://impraveen07.github.io/ToYou-/f0.png" />
-
+  <!-- PWA manifest (embedded) -->
+<link rel="manifest" href='data:application/manifest+json,{"name":"To You","short_name":"ToYou","start_url":"./","display":"standalone","background_color":"#ffffff","theme_color":"#ffffff","icons":[{"src":"ToYou_icon.jpg","sizes":"192x192","type":"image/jpeg"},{"src":"ToYou_icon.jpg","sizes":"512x512","type":"image/jpeg"}]}'>
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="ToYou_icon.jpg">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -589,6 +592,85 @@ document.addEventListener('mousedown', function(e) {
 </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4165656131289909"
      crossorigin="anonymous"></script>
+<!-- Inline service worker creation + registration -->
+<script>
+  // Create a small service worker on the fly (no external file required)
+  const swCode = `
+    self.addEventListener('install', (e) => { self.skipWaiting(); });
+    self.addEventListener('activate', (e) => { self.clients.claim(); });
+    self.addEventListener('fetch', (e) => { /* no-op fetch handler */ });
+  `;
+
+  // Create a blob URL for the SW and register it
+  const swBlob = new Blob([swCode], { type: 'text/javascript' });
+  const swUrl = URL.createObjectURL(swBlob);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(swUrl)
+      .then(() => console.log('SW registered from blob'))
+      .catch((err) => console.warn('SW registration failed:', err));
+  }
+</script>
+  <!-- Bottom install banner (UI + behavior) -->
+<style>
+  #installBanner {
+    position: fixed;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    max-width: 520px;
+    margin: 0 auto;
+    background: #111;
+    color: #fff;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    transform: translateY(120%);
+    transition: transform .35s ease;
+    z-index: 99999;
+    font-family: system-ui, Arial, sans-serif;
+  }
+  #installBanner.show { transform: translateY(0); }
+  #installBanner .label { display:flex; align-items:center; gap:10px; font-size:15px; }
+  #installBanner img { width:42px; height:42px; border-radius:8px; object-fit:cover; }
+  #installBanner button {
+    background:#fff; color:#000; border:none; padding:8px 14px; border-radius:10px;
+    font-weight:600; cursor:pointer;
+  }
+  #installDismiss { background:transparent; color:#ddd; border:none; font-size:13px; cursor:pointer; margin-left:8px; }
+</style>
+
+<div id="installBanner" aria-hidden="true">
+  <div class="label">
+    <img src="ToYou_icon.jpg" alt="To You icon">
+    <div>
+      <div style="font-weight:700;">Install <span style="font-weight:900;">To You</span></div>
+      <div style="font-size:12px; opacity:0.85;">Add To You to your home screen</div>
+    </div>
+  </div>
+  <div style="display:flex; align-items:center;">
+    <button id="installButton">Install</button>
+    <button id="installDismiss">Dismiss</button>
+  </div>
+</div>
+
+<script>
+  let deferredPrompt = null;
+  const banner = document.getElementById('installBanner');
+  const installBtn = document.getElementById('installButton');
+  const dismissBtn = document.getElementById('installDismiss');
+
+  // Listen for beforeinstallprompt
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();            // prevent the default mini-infobar
+    deferredPrompt = e;            // stash the event
+    // show your bottom banner
+    banner.setAttribute('aria-hidden', 'false');
+    banner.classList
 </body>
 </html>
                 

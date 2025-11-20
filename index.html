@@ -194,9 +194,11 @@
       <button class="close-btn" onclick="closeAbout()">✖</button>
       <h2>About Us</h2>
       <p style="font-size:15px;line-height:1.7;">
-        <strong>ToYou❤️</strong> was created for everyone who wants to share their true feelings with someone special.<br><br>
+                <strong>ToYou<img src="ToYou.png" class="heart-img">
+                </strong>was created for everyone who wants to share their true feelings with someone special.<br><br>
         Life sometimes separates us from the people we care about, but words can still bring us closer. This website is a simple, safe space to send honest messages, confessions, or heartfelt notes—whether it’s to reconnect, say what’s on your mind, or just let someone know you care.<br><br>
-        We believe that even a small message can make a big difference. If you have something to say, let <strong>ToYou❤️</strong> help you say it.<br><br>
+        We believe that even a small message can make a big difference. If you have something to say, let         <strong>ToYou<img src="ToYou.png" class="heart-img">
+        </strong> help you say it.<br><br>
         <span style="display: flex; align-items: center; margin-top: 16px;">
           <span>Developed by Praveen&nbsp;</span>
           <a href="https://www.instagram.com/pravee.n.n.n/?igsh=dmpidnM1OW9mcmdu" target="_blank" style="display: inline-flex; align-items: center; text-decoration: none; color: #333;">
@@ -240,7 +242,8 @@
     <div class="form-box">
         <button class="close-btn" data-modal-id="improvementModal">✖</button>
         <h2>Improvement</h2>
-        <p>Have an idea to make ToYou❤️ better? We'd love to hear it! Email <b>zephyrax.co@gmail.com</b> or DM <b>@pravee.n.n.n</b> on Instagram.</p>
+        <p>Have an idea to make         <strong>ToYou<img src="ToYou.png" class="heart-img">
+        </strong> better? We'd love to hear it! Email <b>zephyrax.co@gmail.com</b> or DM <b>@pravee.n.n.n</b> on Instagram.</p>
     </div>
   </div>
 
@@ -588,158 +591,4 @@ document.addEventListener('mousedown', function(e) {
      crossorigin="anonymous"></script>
 </body>
 </html>
-<!-- =================================================================== -->
-<!-- === CUTE ANIMATED MAINTENANCE OVERLAY - PASTE THIS BLOCK IN === -->
-<!-- =================================================================== -->
-<style>
-    /* A cute, rounded font */
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
-
-    #maintenance-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(250, 235, 240, 0.95); /* A slightly softer pink */
-        backdrop-filter: blur(6px);
-        font-family: 'Nunito', sans-serif;
-    }
-
-    .maintenance-box {
-        background: #ffffff;
-        padding: 40px;
-        border-radius: 25px;
-        box-shadow: 0 10px 40px rgba(210, 150, 160, 0.2);
-        text-align: center;
-        max-width: 90%;
-        width: 500px;
-        animation: fade-in 0.5s ease-out;
-        position: relative; /* Needed for positioning the new animations */
-    }
-    
-    .character-container {
-        position: relative;
-        width: 150px;
-        height: 150px;
-        margin: 0 auto 15px auto;
-        /* ✨ NEW: Softer float animation */
-        animation: softer-float 3s infinite alternate ease-in-out;
-    }
-
-    .character-container .cute-character {
-        width: 100%;
-        position: relative;
-        z-index: 2; /* Make sure character is above sparkles */
-    }
-
-    /* 😊 NEW: Blushing Cheeks Animation */
-    .character-container .blush {
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        background: rgba(255, 105, 180, 0.5); /* Hot pink, but semi-transparent */
-        border-radius: 50%;
-        z-index: 3; /* On top of the character */
-        top: 55%;
-        filter: blur(5px);
-        animation: blush-effect 1.5s infinite alternate ease-in-out;
-    }
-    .character-container .blush.left { left: 18%; }
-    .character-container .blush.right { right: 18%; }
-
-    /* ✨ NEW: Sparkles Animation */
-    .sparkle {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        width: 8px;
-        height: 8px;
-        background: #ffd700;
-        border-radius: 50%;
-        opacity: 0;
-        z-index: 1; /* Behind the character */
-        animation: sparkle-float 2s infinite ease-out;
-    }
-    .sparkle::before {
-        content: '+';
-        position: absolute;
-        top: -10px; left: -10px;
-        font-size: 14px;
-        color: #ffc0cb;
-    }
-    /* Add delay to each sparkle */
-    .sparkle:nth-child(2) { animation-delay: 0.5s; left: 40%; }
-    .sparkle:nth-child(3) { animation-delay: 1s; left: 60%; }
-    .sparkle:nth-child(4) { animation-delay: 1.5s; left: 45%; }
-
-    .maintenance-box h1 {
-        font-size: 2.2rem;
-        font-weight: 800;
-        color: #d16075;
-        margin: 0 0 15px 0;
-    }
-
-    .maintenance-box p {
-        font-size: 1.1rem;
-        color: #555;
-        line-height: 1.6;
-    }
-    
-    /* --- ALL THE CUTE KEYFRAME ANIMATIONS --- */
-    @keyframes fade-in {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes softer-float {
-        from { transform: translateY(-6px) rotate(-2deg); }
-        to { transform: translateY(6px) rotate(2deg); }
-    }
-    @keyframes blush-effect {
-        from { transform: scale(0.8); opacity: 0.5; }
-        to { transform: scale(1.1); opacity: 0.8; }
-    }
-    @keyframes sparkle-float {
-        0% { transform: translateY(0) scale(0.5); opacity: 0.7; }
-        100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
-    }
-</style>
-
-<div id="maintenance-overlay">
-    <div class="maintenance-box">
-
-        <div class="character-container">
-            <!-- 
-              !!! IMPORTANT !!!
-              REPLACE THE SLEEPY CLOUD BELOW WITH YOUR CUTE ABUNA.
-              Just change the src="..." to the path of your image.
-            -->
-            <img src="https://api.iconify.design/ph:cloud-moon-bold.svg?color=%23b2dffc" alt="Cute Mascot" class="cute-character">
-            
-            <!-- You can also use a local image file like this: -->
-            <!-- <img src="/images/your-abuna.png" alt="Cute Abuna" class="cute-character"> -->
-
-            <!-- 😊 New! Blushing Cheeks -->
-            <div class="blush left"></div>
-            <div class="blush right"></div>
-            
-            <!-- ✨ New! Animated Sparkles -->
-            <div class="sparkles-container">
-                <span class="sparkle"></span>
-                <span class="sparkle"></span>
-                <span class="sparkle"></span>
-                <span class="sparkle"></span>
-            </div>
-        </div>
-
-        <h1>Taking a short nap...</h1>
-        <p>
-            Our website is dreaming of cute new features! We're working on some magic behind the scenes and will be back before you know it.
-        </p>
-    </div>
-</div>
-<!-- ================================================================= -->
-<!-- === END OF OVERLAY BLOCK - DELETE THIS WHEN YOU ARE DONE === -->
-<!-- ================================================================= -->
+                

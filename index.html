@@ -27,7 +27,7 @@
     }
     body { background: #fff; font-family: Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
     .header { font-family: 'Pacifico', cursive; font-size: 36px; position: fixed; top: 10px; left: 10px; z-index: 1001; color: #222; }
-    .header span { color: red; }
+    .header span { color: black; }
     #menuIcon { position: fixed; top: 15px; right: 15px; width: 30px; height: 24px; cursor: pointer; z-index: 1002; }
     .bar { position: absolute; height: 4px; width: 100%; background-color: black; border-radius: 2px; left: 0; transition: transform 0.4s ease, opacity 0.4s ease; transform-origin: center; }
     .bar1 { top: 0; } .bar2 { top: 50%; transform: translateY(-50%); } .bar3 { bottom: 0; }
@@ -100,13 +100,36 @@
     .icon-img { width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius: 6px; object-fit: cover; }
     .contact-links a { display: block; text-align: center; margin: 10px 0; font-size: 16px; color: #333; text-decoration: none; }
     .contact-links a:hover { text-decoration: underline; }
+    .header .heart-img { pointer-events: auto; }
+
+    .title-text {
+  display: inline-block;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+   }
+
+/* Tuned image size + vertical nudge to match text baseline */
+   .heart-img {
+  width: 30px;               /* change to 26 / 34 to tweak size */
+  height: 30px;
+  object-fit: contain;
+  display: inline-block;
+  transform: translateY(2px); /* small vertical nudge — change to 0 / 1 / 3 as needed */
+   }
+
+/* responsive tweaks */
+@media (max-width: 420px) {
+  .header { font-size: 28px; top: 8px; left: 8px; gap: 6px; }
+  .heart-img { width: 24px; height: 24px; transform: translateY(1px); }
+}
 </style>
 </head>
 <body>
-  <div class="header">
-  <img src="ToYou.png" class="header-logo" alt="Logo">
-  ToYou<span>❤️</span>
-  </div>
+<div class="header">
+  <span class="title-text">ToYou</span>
+  <img src="ToYou.png" class="heart-img" alt="Heart">
+</div>
   <div id="menuIcon"><div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div></div>
   <div id="sidePanel">
     <h3>Menu</h3>

@@ -250,32 +250,18 @@
         </strong> better? We'd love to hear it! Email <b>zephyrax.co@gmail.com</b> or DM <b>@pravee.n.n.n</b> on Instagram.</p>
     </div>
   </div>
-<div id="installBox" 
-style="
-position: fixed;
-top: 20px;
-left: 50%;
-transform: translateX(-50%);
-background: #ffffff;
-padding: 12px 18px;
-border-radius: 12px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-display: none;
-z-index: 9999;
-font-size: 17px;
-font-weight: bold;">
-Install ToYou ❤️  
-<button id="installBtn" style="
-margin-left: 12px;
-padding: 6px 12px;
-border-radius: 8px;
-border: none;
-background: black;
-color: white;">
-Install
-</button>
-</div>
-<script type="module">
+
+
+  <div id="installBox" 
+     style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); 
+            background:#fff; padding:12px 20px; border-radius:12px; 
+            box-shadow:0 4px 12px rgba(0,0,0,0.2); z-index:9999;">
+  <span style="font-size:16px;">Install ToYou App ❤️</span>
+  <button onclick="installNow()" 
+          style="margin-left:12px; padding:8px 15px; border:0; border-radius:8px; background:#ff4b4b; color:white;">
+    Install
+  </button>
+  </div><script type="module">
 // --- FIREBASE SETUP ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -615,57 +601,74 @@ document.addEventListener('mousedown', function(e) {
   });
 });
 </script>
-  <script>
+  <!-- FAST INSTALL + AUTO OPEN FEEL -->
+<script>
 let deferredPrompt = null;
 
-// Show popup always if PWA not installed
+// Show install box
 function showInstallBox() {
-  document.getElementById("installBox").style.display = "block";
+  const box = document.getElementById("installBox");
+  if (box) box.style.display = "block";
 }
 
-// Hide popup after install
+// Hide install box
 function hideInstallBox() {
-  document.getElementById("installBox").style.display = "none";
+  const box = document.getElementById("installBox");
+  if (box) box.style.display = "none";
 }
 
-// Detect installation status
+// Detect if app is installed
 window.addEventListener("appinstalled", () => {
   console.log("APP INSTALLED");
+
+  // 🔥 Auto-open feel (reload page instantly)
+  setTimeout(() => {
+    window.location.reload();
+  }, 300);
+
   hideInstallBox();
 });
 
-// Android / Chrome install event
+// FAST DETECTION OF INSTALL PROMPT
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  console.log("Install prompt ready");
 
-  showInstallBox();   // Show box immediately
+  console.log("Install prompt ready FAST");
+
+  // Show install box instantly
+  showInstallBox();
+
+  // 🔥 Super fast auto popup
+  setTimeout(() => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+  }, 800); // 0.8 sec = much faster
 });
 
-// Install button click
-document.getElementById("installBtn").addEventListener("click", async () => {
+// Install button manually pressed
+async function installNow() {
   if (!deferredPrompt) return;
 
   deferredPrompt.prompt();
+  const result = await deferredPrompt.userChoice;
 
-  const choice = await deferredPrompt.userChoice;
-  console.log("Install choice:", choice);
+  console.log("User install result:", result.outcome);
 
-  if (choice.outcome === "accepted") hideInstallBox();
+  if (result.outcome === "accepted") hideInstallBox();
+
   deferredPrompt = null;
-});
+}
 
-// iOS Tip
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+// iOS message
+const isIOS = /iphone|ipod|ipad/i.test(navigator.userAgent);
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
 if (isIOS && isSafari && !navigator.standalone) {
   setTimeout(() => {
     alert("Install ToYou ❤️:\nTap Share → Add to Home Screen");
-  }, 2500);
+  }, 2000);
 }
-  </script>
+</script>
 </body>
 </html>
                 

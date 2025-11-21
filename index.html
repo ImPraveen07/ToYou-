@@ -15,7 +15,10 @@
   <meta name="twitter:description" content="Share your true feelings anonymously. Send a message to anyone, anytime. #ToYou❤️" />
   <meta name="twitter:image" content="https://impraveen07.github.io/ToYou-/f0.png" />
   <!-- PWA manifest (embedded) -->
-
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+<link rel="apple-touch-icon" href="ToYou.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -588,88 +591,42 @@ document.addEventListener('mousedown', function(e) {
   });
 });
 </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4165656131289909"
-     crossorigin="anonymous"></script>
-<!-- 🌟 Inject manifest inline -->
-<script>
-// ✅ 1. Inject manifest as Blob into head
-const manifest = {
-  name: "ToYou❤️",
-  short_name: "ToYou",
-  start_url: ".",
-  display: "standalone",
-  background_color: "#ffffff",
-  theme_color: "#ffffff",
-  icons: [
-    {
-      src: "ToYou_icon.jpg", // ⛔️ must exist and be 192x192
-      sizes: "192x192",
-      type: "image/jpeg"
-    },
-    {
-      src: "ToYou_icon.jpg", // ⛔️ must also support 512x512 if possible
-      sizes: "512x512",
-      type: "image/jpeg"
-    }
-  ]
-};
-
-const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
-const manifestURL = URL.createObjectURL(manifestBlob);
-const manifestLink = document.createElement("link");
-manifestLink.rel = "manifest";
-manifestLink.href = manifestURL;
-document.head.appendChild(manifestLink);
-</script>
-
-<script>
-// ✅ 2. Simple Service Worker
-const swCode = `
-  self.addEventListener("install", e => self.skipWaiting());
-  self.addEventListener("activate", e => self.clients.claim());
-  self.addEventListener("fetch", e => {});
-`;
-
-const swBlob = new Blob([swCode], { type: "text/javascript" });
-const swURL = URL.createObjectURL(swBlob);
-
+  <script>
+// --- Register Service Worker ---
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register(swURL)
-    .then(() => console.log("[SW] Service worker registered via blob"))
-    .catch((err) => console.warn("[SW] Failed:", err));
+  navigator.serviceWorker.register("sw.js")
+    .then(() => console.log("Service Worker Registered"))
+    .catch(err => console.log("SW Error:", err));
 }
-</script>
 
-<script>
-// ✅ 3. Show install banner (only if not dismissed)
-let deferredPrompt = null;
+// --- Handle Install Prompt ---
+let deferredPrompt;
 
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  console.log("[PWA] Install prompt available");
+  console.log("[PWA] Install prompt ready");
 
-  // Optional: auto-prompt instead of banner
+  // Auto popup after 1.8s
   setTimeout(async () => {
+    if (!deferredPrompt) return;
     deferredPrompt.prompt();
-    const choiceResult = await deferredPrompt.userChoice;
-    console.log("User response to install:", choiceResult);
+    const choice = await deferredPrompt.userChoice;
+    console.log("Install result:", choice);
     deferredPrompt = null;
-  }, 2000);
+  }, 1800);
 });
-</script>
 
-<script>
-// ✅ 4. (Bonus) iOS install tip
+// --- iOS Install Tip ---
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 if (isIOS && isSafari && !window.navigator.standalone) {
   setTimeout(() => {
-    alert("Install ToYou❤️ on your iPhone:\n• Tap Share → Add to Home Screen 📱");
-  }, 2500);
+    alert("Install ToYou❤️: Tap Share → Add to Home Screen");
+  }, 2000);
 }
-</script>
+  </script>
 </body>
 </html>
                 

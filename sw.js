@@ -1,11 +1,11 @@
-self.addEventListener("install", (e) => {
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
-self.addEventListener("activate", (e) => {
+self.addEventListener("activate", () => {
   self.clients.claim();
 });
 
-self.addEventListener("fetch", (e) => {
-  // no caching now
+self.addEventListener("fetch", (event) => {
+  // basic fetch passthrough
 });

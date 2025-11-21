@@ -11,13 +11,13 @@
 
   "icons": [
     {
-      "src": "/192.png",
+      "src": "/Picsart_25-11-22_02-29-24-468.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/512.png",
+      "src": "/Picsart_25-11-22_02-26-57-559.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -41,7 +41,7 @@
       "url": "/messages",
       "icons": [
         {
-          "src": "/192.png",
+          "src": "/Picsart_25-11-22_02-29-24-468.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -53,7 +53,7 @@
       "url": "/memories",
       "icons": [
         {
-          "src": "/192.png",
+          "src": "/Picsart_25-11-22_02-29-24-468.png",
           "sizes": "192x192",
           "type": "image/png"
         }

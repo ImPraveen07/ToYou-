@@ -1,22 +1,34 @@
 {
-  "name": "ToYou❤️",
+  "name": "ToYou ❤️",
   "short_name": "ToYou",
+  "description": "A beautiful personalised app to send love, memories, and messages.",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
+
   "icons": [
     {
-      "src": "192.png",
+      "src": "/192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "512.png",
+      "src": "/512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "platform": "wide"
     }
   ]
 }

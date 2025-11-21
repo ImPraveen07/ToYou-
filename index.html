@@ -602,73 +602,28 @@ document.addEventListener('mousedown', function(e) {
 });
 </script>
   <!-- FAST INSTALL + AUTO OPEN FEEL -->
-<script>
-let deferredPrompt = null;
-
-// Show install box
-function showInstallBox() {
-  const box = document.getElementById("installBox");
-  if (box) box.style.display = "block";
-}
-
-// Hide install box
-function hideInstallBox() {
-  const box = document.getElementById("installBox");
-  if (box) box.style.display = "none";
-}
-
-// Detect if app is installed
-window.addEventListener("appinstalled", () => {
-  console.log("APP INSTALLED");
-
-  // 🔥 Auto-open feel (reload page instantly)
-  setTimeout(() => {
-    window.location.reload();
-  }, 300);
-
-  hideInstallBox();
-});
-
-// FAST DETECTION OF INSTALL PROMPT
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-
-  console.log("Install prompt ready FAST");
-
-  // Show install box instantly
-  showInstallBox();
-
-  // 🔥 Super fast auto popup
-  setTimeout(() => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-  }, 800); // 0.8 sec = much faster
-});
-
-// Install button manually pressed
-async function installNow() {
-  if (!deferredPrompt) return;
-
-  deferredPrompt.prompt();
-  const result = await deferredPrompt.userChoice;
-
-  console.log("User install result:", result.outcome);
-
-  if (result.outcome === "accepted") hideInstallBox();
-
-  deferredPrompt = null;
-}
-
-// iOS message
-const isIOS = /iphone|ipod|ipad/i.test(navigator.userAgent);
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-if (isIOS && isSafari && !navigator.standalone) {
-  setTimeout(() => {
-    alert("Install ToYou ❤️:\nTap Share → Add to Home Screen");
-  }, 2000);
-}
-</script>
+<div id="installBox" 
+     style="display:none; 
+            position:fixed; 
+            bottom:20px; 
+            left:50%; 
+            transform:translateX(-50%);
+            background:white;
+            padding:15px 20px;
+            border-radius:14px;
+            box-shadow:0 4px 18px rgba(0,0,0,0.2);
+            z-index:9999;
+            font-family:sans-serif;">
+  <strong>Install ToYou ❤️</strong><br>
+  <button onclick="installNow()" 
+          style="margin-top:8px; padding:8px 16px; border:none; border-radius:8px; background:#ff4d6a; color:white;">
+     Install
+  </button>
+  <button onclick="hideInstallBox()" 
+          style="margin-left:10px; padding:8px 16px; border:none; border-radius:8px; background:#ccc;">
+     Close
+  </button>
+</div>
 </body>
 </html>
                 

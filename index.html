@@ -250,7 +250,31 @@
         </strong> better? We'd love to hear it! Email <b>zephyrax.co@gmail.com</b> or DM <b>@pravee.n.n.n</b> on Instagram.</p>
     </div>
   </div>
-
+<div id="installBox" 
+style="
+position: fixed;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: #ffffff;
+padding: 12px 18px;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+display: none;
+z-index: 9999;
+font-size: 17px;
+font-weight: bold;">
+Install ToYou ❤️  
+<button id="installBtn" style="
+margin-left: 12px;
+padding: 6px 12px;
+border-radius: 8px;
+border: none;
+background: black;
+color: white;">
+Install
+</button>
+</div>
 <script type="module">
 // --- FIREBASE SETUP ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -592,39 +616,54 @@ document.addEventListener('mousedown', function(e) {
 });
 </script>
   <script>
-// --- Register Service Worker ---
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js")
-    .then(() => console.log("Service Worker Registered"))
-    .catch(err => console.log("SW Error:", err));
+let deferredPrompt = null;
+
+// Show popup always if PWA not installed
+function showInstallBox() {
+  document.getElementById("installBox").style.display = "block";
 }
 
-// --- Handle Install Prompt ---
-let deferredPrompt;
+// Hide popup after install
+function hideInstallBox() {
+  document.getElementById("installBox").style.display = "none";
+}
 
+// Detect installation status
+window.addEventListener("appinstalled", () => {
+  console.log("APP INSTALLED");
+  hideInstallBox();
+});
+
+// Android / Chrome install event
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  console.log("[PWA] Install prompt ready");
+  console.log("Install prompt ready");
 
-  // Auto popup after 1.8s
-  setTimeout(async () => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
-    console.log("Install result:", choice);
-    deferredPrompt = null;
-  }, 1800);
+  showInstallBox();   // Show box immediately
 });
 
-// --- iOS Install Tip ---
+// Install button click
+document.getElementById("installBtn").addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+
+  const choice = await deferredPrompt.userChoice;
+  console.log("Install choice:", choice);
+
+  if (choice.outcome === "accepted") hideInstallBox();
+  deferredPrompt = null;
+});
+
+// iOS Tip
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-if (isIOS && isSafari && !window.navigator.standalone) {
+if (isIOS && isSafari && !navigator.standalone) {
   setTimeout(() => {
-    alert("Install ToYou❤️: Tap Share → Add to Home Screen");
-  }, 2000);
+    alert("Install ToYou ❤️:\nTap Share → Add to Home Screen");
+  }, 2500);
 }
   </script>
 </body>

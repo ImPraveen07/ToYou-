@@ -1,9 +1,9 @@
 {
   "name": "ToYou ❤️",
   "short_name": "ToYou",
-  "description": "A personalised app to share love, memories, notes, and beautiful moments.",
+  "description": "A beautiful personalised app to send love, memories, and heartfelt messages.",
+  "lang": "en",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
@@ -26,10 +26,38 @@
 
   "screenshots": [
     {
-      "src": "/screenshot1.png",
-      "sizes": "1080x2140",
+      "src": "/Picsart_25-11-22_02-19-25-452.png",
+      "sizes": "1078x2121",
       "type": "image/png",
-      "label": "Main screen"
+      "platform": "wide",
+      "label": "Home Page"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Open Messages",
+      "short_name": "Messages",
+      "url": "/messages",
+      "icons": [
+        {
+          "src": "/192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Your Memories",
+      "short_name": "Memories",
+      "url": "/memories",
+      "icons": [
+        {
+          "src": "/192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

@@ -138,129 +138,125 @@ if ("serviceWorker" in navigator) {
   <span class="title-text">ToYou</span>
   <img src="ToYou.png" class="heart-img" alt="Heart">
 </div>
-  <div id="menuIcon"><div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div></div>
-  <div id="sidePanel">
-    <h3>Menu</h3>
-    <ul>
-        <li id="aboutUs">About Us</li>
-        <li id="contactUs">Contact Us</li>
-        <li id="help">Help</li>
-        
-        <li id="improvement">Improvement</li>
-    </ul>
+<div id="menuIcon"><div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div></div>
+<div id="sidePanel">
+  <h3>Menu</h3>
+  <ul>
+      <li id="aboutUs">About Us</li>
+      <li id="contactUs">Contact Us</li>
+      <li id="help">Help</li>
+      <li id="report">Report</li>
+      <li id="improvement">Improvement</li>
+  </ul>
+</div>
+<div class="image-container"><img src="f0.png" alt="ToYou Logo" /></div>
+<div class="search-bar"><input type="text" id="searchInput" placeholder="Search by receiver name..."><button id="searchBtn">Search</button></div>
+<div id="postCount"></div>
+<div class="posts-list" id="postsList"></div>
+<button class="create-post-btn" id="createPostBtn">+ Create Post</button>
+
+<div class="modal-overlay" id="composerModal">
+  <div>
+      <div class="screen" id="screen-box">
+          <div class="top-bar">
+              <span class="time-display" id="clock">--:--</span>
+              <span class="receiver-name" id="receiver-name">To: Receiver</span>
+              <div class="right-icons">
+                  <div class="signal"><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div></div>
+                  <div class="battery-outline"><div class="battery-fill"></div><div class="battery-tip"></div></div>
+              </div>
+          </div>
+          <div class="typing-area">
+              <div id="rainbow-text-overlay"></div>
+              <textarea id="nokia-message" placeholder="Type your message..."></textarea>
+          </div>
+          <div class="menu-bar">
+              <span id="cancelBtn">Cancel</span>
+              <span id="themeBtn">Theme</span>
+              <span id="saveBtn">Save</span>
+          </div>
+      </div>
+      <div class="theme-popup" id="theme-popup">
+          <div class="theme-box">
+              <div>Selected:</div>
+              <div class="selected-preview" id="selected-preview"></div>
+              <div class="color-row">
+                  <div class="color-square" style="background:#FFD1DC"></div><div class="color-square" style="background:#FFDFD3"></div><div class="color-square" style="background:#FFF5BA"></div><div class="color-square" style="background:#B5EAD7"></div><div class="color-square" style="background:#C3FBD8"></div>
+              </div>
+              <div class="color-row">
+                  <div class="color-square" style="background:#A0E7E5"></div><div class="color-square" style="background:#D0F4DE"></div><div class="color-square" style="background:#FBCFE8"></div><div class="color-square" style="background:#FFC9DE"></div><div class="color-square" style="background:#E2F0CB"></div>
+              </div>
+              <div class="color-row">
+                  <div class="image-theme-box" data-image="f1.jpg" data-textcolor="white"><img src="f1.jpg" alt="Theme"/></div>
+                  <div class="image-theme-box" data-motivation="f2.jpg"><img src="f2.jpg" alt="Theme"/></div>
+                  <div class="image-theme-box" data-image="f3.jpg" data-textcolor="white"><img src="f3.jpg" alt="Theme"/></div>
+              </div>
+              <div class="close-theme" id="closeThemeBtn">Close ⨉</div>
+          </div>
+      </div>
   </div>
-  <div class="image-container"><img src="f0.png" alt="ToYou Logo" /></div>
-  <div class="search-bar"><input type="text" id="searchInput" placeholder="Search by receiver name..."><button id="searchBtn">Search</button></div>
-  <div id="postCount"></div>
-  <div class="posts-list" id="postsList"></div>
-  <button class="create-post-btn" id="createPostBtn">+ Create Post</button>
-  
-  <div class="modal-overlay" id="composerModal">
-    <div>
-        <div class="screen" id="screen-box">
-            <div class="top-bar">
-                <span class="time-display" id="clock">--:--</span>
-                <span class="receiver-name" id="receiver-name">To: Receiver</span>
-                <div class="right-icons">
-                    <div class="signal"><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div></div>
-                    <div class="battery-outline"><div class="battery-fill"></div><div class="battery-tip"></div></div>
-                </div>
-            </div>
-            <div class="typing-area">
-                <div id="rainbow-text-overlay"></div>
-                <textarea id="nokia-message" placeholder="Type your message..."></textarea>
-            </div>
-            <div class="menu-bar">
-                <span id="cancelBtn">Cancel</span>
-                <span id="themeBtn">Theme</span>
-                <span id="saveBtn">Save</span>
-            </div>
-        </div>
-        <div class="theme-popup" id="theme-popup">
-            <div class="theme-box">
-                <div>Selected:</div>
-                <div class="selected-preview" id="selected-preview"></div>
-                <div class="color-row">
-                    <div class="color-square" style="background:#FFD1DC"></div><div class="color-square" style="background:#FFDFD3"></div><div class="color-square" style="background:#FFF5BA"></div><div class="color-square" style="background:#B5EAD7"></div><div class="color-square" style="background:#C3FBD8"></div>
-                </div>
-                <div class="color-row">
-                    <div class="color-square" style="background:#A0E7E5"></div><div class="color-square" style="background:#D0F4DE"></div><div class="color-square" style="background:#FBCFE8"></div><div class="color-square" style="background:#FFC9DE"></div><div class="color-square" style="background:#E2F0CB"></div>
-                </div>
-                <div class="color-row">
-                    <div class="image-theme-box" data-image="f1.jpg" data-textcolor="white"><img src="f1.jpg" alt="Theme"/></div>
-                    <div class="image-theme-box" data-motivation="f2.jpg"><img src="f2.jpg" alt="Theme"/></div>
-                    <div class="image-theme-box" data-image="f3.jpg" data-textcolor="white"><img src="f3.jpg" alt="Theme"/></div>
-                </div>
-                <div class="close-theme" id="closeThemeBtn">Close ⨉</div>
-            </div>
-        </div>
-    </div>
-  </div>
-  <!-- About Us Modal -->
-       <div class="contact-modal" id="aboutModal">
-    <div class="form-box">
-      <button class="close-btn" onclick="closeAbout()">✖</button>
-      <h2>About Us</h2>
-      <p style="font-size:15px;line-height:1.7;">
-                <strong>ToYou<img src="ToYou.png" class="heart-img">
-                </strong>was created for everyone who wants to share their true feelings with someone special.<br><br>
-        Life sometimes separates us from the people we care about, but words can still bring us closer. This website is a simple, safe space to send honest messages, confessions, or heartfelt notes—whether it’s to reconnect, say what’s on your mind, or just let someone know you care.<br><br>
-        We believe that even a small message can make a big difference. If you have something to say, let         <strong>ToYou<img src="ToYou.png" class="heart-img">
-        </strong> help you say it.<br><br>
-        <span style="display: flex; align-items: center; margin-top: 16px;">
-          <span>Developed by Praveen&nbsp;</span>
-          <a href="https://www.instagram.com/pravee.n.n.n/?igsh=dmpidnM1OW9mcmdu" target="_blank" style="display: inline-flex; align-items: center; text-decoration: none; color: #333;">
-            <img src="instagram.png" alt="Instagram" style="width: 22px; height: 22px; border-radius: 5px; object-fit: cover; margin-right: 5px;">
-            @pravee.n.n.n
-          </a>
-        </span>
-      </p>
-    </div>
-  </div>
-    
-<!-- Contact Modal -->
-<div class="contact-modal" id="contactModal">    
-  <div class="form-box">    
-    <button class="close-btn" onclick="closeContact()">✖</button>    
-    <h2>Contact the Developer</h2>    
-    <div class="contact-links">    
-      <a href="mailto:zephyrax.co@gmail.com">    
-        <img src="gmail.png" alt="Gmail" class="icon-img" /> zephyrax.co@gmail.com    
-      </a>    
-      <a href="https://www.instagram.com/toyou.msg.app?igsh=MW56bHRxZTMzanhoNQ==" target="_blank">    
-        <img src="instagram.png" alt="Instagram" class="icon-img" /> @toyou.msg.app    
-      </a>    
-    </div>    
-  </div>    
 </div>
 
-    <div class="contact-modal" id="helpModal">
-    <div class="form-box">
-        <button class="close-btn" data-modal-id="helpModal">✖</button>
-        <h2>Help</h2>
-        <p style="font-size:15px;line-height:1.7;"><b>How to use:</b><br>1. Click <b>+ Create Post</b> to write.<br>2. Set a theme, message, and receiver's name.<br>3. Click <b>Save</b> to post anonymously.<br><br><b>Can I delete/edit?</b> Not yet. Contact us for removal.</p>
-    </div>
-    </div>
-  
-<div class="contact-modal" id="improvementModal">
+<!-- About Us Modal -->
+<div class="contact-modal" id="aboutModal">
   <div class="form-box">
-    <button class="close-btn" data-modal-id="improvementModal">✖</button>
-    <h2>Improvement</h2>
-    <p>Have an idea to make <strong>ToYou<img src="ToYou.png" class="heart-img" style="width:20px; vertical-align: middle;"></strong> better? We'd love to hear it! Reach out via:</p>
-    
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-      <!-- Gmail -->
-      <a href="mailto:zephyrax.co@gmail.com" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
-        <img src="gmail.png" alt="Gmail" style="width:24px; height:24px; margin-right: 8px;"> zephyrax.co@gmail.com
+    <button class="close-btn" onclick="closeAbout()">✖</button>
+    <h2>About Us</h2>
+    <p style="font-size:15px;line-height:1.7;">
+      <strong>ToYou<img src="ToYou.png" class="heart-img"></strong> was created for everyone who wants to share their true feelings with someone special.<br><br>
+      Life sometimes separates us from the people we care about, but words can still bring us closer. This website is a simple, safe space to send honest messages, confessions, or heartfelt notes—whether it’s to reconnect, say what’s on your mind, or just let someone know you care.<br><br>
+      We believe that even a small message can make a big difference. If you have something to say, let <strong>ToYou<img src="ToYou.png" class="heart-img"></strong> help you say it.<br><br>
+      <span style="display: flex; align-items: center; margin-top: 16px;">
+        <span>Developed by Praveen&nbsp;</span>
+        <a href="https://www.instagram.com/toyou.msg.app?igsh=MW56bHRxZTMzanhoNQ==" target="_blank" style="display: inline-flex; align-items: center; text-decoration: none; color: #333;">
+          <img src="instagram.png" alt="Instagram" style="width: 22px; height: 22px; border-radius: 5px; object-fit: cover; margin-right: 5px;">
+          @toyou.msg.app
+        </a>
+      </span>
+    </p>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div class="contact-modal" id="contactModal">
+  <div class="form-box">
+    <button class="close-btn" onclick="closeContact()">✖</button>
+    <h2>Contact the Developer</h2>
+    <div class="contact-links">
+      <a href="mailto:zephyrax.co@gmail.com">
+        <img src="gmail.png" alt="Gmail" class="icon-img" /> zephyrax.co@gmail.com
       </a>
-      
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/pravee.n.n.n/" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
-        <img src="instagram.png" alt="Instagram" style="width:24px; height:24px; margin-right: 8px;"> @pravee.n.n.n
+      <a href="https://www.instagram.com/toyou.msg.app?igsh=MW56bHRxZTMzanhoNQ==" target="_blank">
+        <img src="instagram.png" alt="Instagram" class="icon-img" /> @toyou.msg.app
       </a>
     </div>
   </div>
 </div>
+
+<div class="contact-modal" id="helpModal">
+  <div class="form-box">
+      <button class="close-btn" data-modal-id="helpModal">✖</button>
+      <h2>Help</h2>
+      <p style="font-size:15px;line-height:1.7;"><b>How to use:</b><br>1. Click <b>+ Create Post</b> to write.<br>2. Set a theme, message, and receiver's name.<br>3. Click <b>Save</b> to post anonymously.<br><br><b>Can I delete/edit?</b> Not yet. Contact us for removal.</p>
+  </div>
+</div>
+
+<div class="contact-modal" id="reportModal">
+  <div class="form-box">
+      <button class="close-btn" data-modal-id="reportModal">✖</button>
+      <h2>Report</h2>
+      <p>Find an inappropriate post? Please take a screenshot and email it to <b>zephyrax.co@gmail.com</b> or DM <b>@toyou.msg.app</b> on Instagram with the post details.</p>
+  </div>
+</div>
+
+<div class="contact-modal" id="improvementModal">
+  <div class="form-box">
+      <button class="close-btn" data-modal-id="improvementModal">✖</button>
+      <h2>Improvement</h2>
+      <p>Have an idea to make <strong>ToYou<img src="ToYou.png" class="heart-img"></strong> better? We'd love to hear it! Email <b>zephyrax.co@gmail.com</b> or DM <b>@toyou.msg.app</b> on Instagram.</p>
+  </div>
+</div>
+                
 
 <div id="installBox" 
      style="

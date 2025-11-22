@@ -256,16 +256,7 @@ if ("serviceWorker" in navigator) {
   </div>
 
 
-  <div id="installBox" 
-     style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); 
-            background:#fff; padding:12px 20px; border-radius:12px; 
-            box-shadow:0 4px 12px rgba(0,0,0,0.2); z-index:9999;">
-  <span style="font-size:16px;">Install ToYou App ❤️</span>
-  <button onclick="installNow()" 
-          style="margin-left:12px; padding:8px 15px; border:0; border-radius:8px; background:#ff4b4b; color:white;">
-    Install
-  </button>
-  </div>
+  
   <!-- PWA INTRO VIDEO -->
 <div id="introContainer" style="
     position:fixed; inset:0; background:black;
@@ -291,7 +282,42 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // --- DOM ELEMENTS & STATE ---
-const postsList = document.getElementById('postsList');
+const postsList = document.getElementByI<div id="installBox" 
+     style="
+     display:none;
+     position:fixed;
+     top:20px;
+     left:50%;
+     transform:translateX(-50%);
+     background:black;
+     color:white;
+     padding:12px 20px;
+     border-radius:12px;
+     box-shadow:0 4px 18px rgba(0,0,0,0.5);
+     z-index:9999;
+     font-family:sans-serif;
+     text-align:center;
+     ">
+  
+  <strong style="font-size:15px;">Install ToYou ❤️</strong><br>
+
+  <button onclick="installNow()" 
+          style="margin-top:8px; padding:6px 14px;
+                 border:none; border-radius:8px;
+                 background:white; color:black;
+                 font-weight:bold; cursor:pointer;">
+       Install
+  </button>
+
+  <button onclick="hideInstallBox()" 
+          style="margin-left:10px; padding:6px 14px;
+                 border:none; border-radius:8px;
+                 background:#444; color:white;
+                 cursor:pointer;">
+       Close
+  </button>
+
+</div>d('postsList');
 const postCount = document.getElementById('postCount');
 const searchInput = document.getElementById('searchInput');
 const createPostBtn = document.getElementById('createPostBtn');
@@ -664,23 +690,23 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.setItem("introPlayed", "true");
 });
   </script>
-  <script>
+<script>
 let deferredPrompt = null;
 
-// Detect if PWA installed
+// Check if PWA installed
 function isPWAInstalled() {
     return window.matchMedia('(display-mode: standalone)').matches ||
            window.navigator.standalone === true;
 }
 
-// Show popup only if NOT installed
+// Show popup ONLY if not installed
 function showInstallBox() {
     if (!isPWAInstalled() && deferredPrompt) {
         document.getElementById("installBox").style.display = "block";
     }
 }
 
-// Store install event
+// When install prompt available
 window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
     deferredPrompt = e;
@@ -692,9 +718,9 @@ window.installNow = async function () {
     if (!deferredPrompt) return;
 
     deferredPrompt.prompt();
-    const result = await deferredPrompt.userChoice;
+    const choice = await deferredPrompt.userChoice;
 
-    if (result.outcome === 'accepted') {
+    if (choice.outcome === 'accepted') {
         document.getElementById("installBox").style.display = "none";
     }
 };
@@ -704,11 +730,11 @@ window.hideInstallBox = function () {
     document.getElementById("installBox").style.display = "none";
 };
 
-// When app gets installed → hide popup
+// Hide when app is installed
 window.addEventListener("appinstalled", () => {
     document.getElementById("installBox").style.display = "none";
 });
-  </script>
+</script>
 </body>
 </html>
     

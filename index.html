@@ -315,6 +315,8 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+    // --- DOM ELEMENTS & STATE ---
+const postsList = document.getElementById("postsList"); 
 const postCount = document.getElementById('postCount');
 const searchInput = document.getElementById('searchInput');
 const createPostBtn = document.getElementById('createPostBtn');

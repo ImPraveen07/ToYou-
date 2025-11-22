@@ -218,9 +218,11 @@ if ("serviceWorker" in navigator) {
     </div>
   </div>
     <!-- Contact Modal -->
-<div class="contact-modal" id="contactModal" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); font-family: sans-serif;">
+<!-- Contact Modal -->
+<div id="contactModal" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); font-family: sans-serif; display: block;">
   <div class="form-box">
-    <button onclick="document.getElementById('contactModal').style.display='none'" style="float: right; background: none; border: none; font-size: 18px; cursor: pointer;">✖</button>
+    <button onclick="document.getElementById('contactModal').style.display='none'" 
+            style="float: right; background: none; border: none; font-size: 18px; cursor: pointer;">✖</button>
     <h2 style="margin-top: 0;">Contact the Developer</h2>
     <div style="display: flex; gap: 30px; margin-top: 20px;">
       <a href="mailto:zephyrax.co@gmail.com" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #000; font-weight: 500;">
@@ -234,6 +236,7 @@ if ("serviceWorker" in navigator) {
     </div>
   </div>
 </div>
+
   
 <div class="contact-modal" id="improvementModal">
   <div class="form-box">

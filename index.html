@@ -664,6 +664,51 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.setItem("introPlayed", "true");
 });
   </script>
+  <script>
+let deferredPrompt = null;
+
+// Detect if PWA installed
+function isPWAInstalled() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
+}
+
+// Show popup only if NOT installed
+function showInstallBox() {
+    if (!isPWAInstalled() && deferredPrompt) {
+        document.getElementById("installBox").style.display = "block";
+    }
+}
+
+// Store install event
+window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallBox();
+});
+
+// Install Now
+window.installNow = async function () {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const result = await deferredPrompt.userChoice;
+
+    if (result.outcome === 'accepted') {
+        document.getElementById("installBox").style.display = "none";
+    }
+};
+
+// Close button
+window.hideInstallBox = function () {
+    document.getElementById("installBox").style.display = "none";
+};
+
+// When app gets installed → hide popup
+window.addEventListener("appinstalled", () => {
+    document.getElementById("installBox").style.display = "none";
+});
+  </script>
 </body>
 </html>
     

@@ -145,7 +145,7 @@ if ("serviceWorker" in navigator) {
         <li id="aboutUs">About Us</li>
         <li id="contactUs">Contact Us</li>
         <li id="help">Help</li>
-        <li id="report">Report</li>
+        
         <li id="improvement">Improvement</li>
     </ul>
   </div>
@@ -218,27 +218,22 @@ if ("serviceWorker" in navigator) {
     </div>
   </div>
     <!-- Contact Modal -->
-  <div class="contact-modal" id="contactModal">
-    <div class="form-box">
-      <button class="close-btn" onclick="closeContact()">✖</button>
-      <h2>Contact the Developer</h2>
-      <div class="contact-links">
-        <a href="mailto:zephyrax.co@gmail.com">
-          <img src="gmail.png" alt="Gmail" class="icon-img" /> zephyrax.co@gmail.com
-        </a>
-        <a href="https://www.instagram.com/pravee.n.n.n/?igsh=dmpidnM1OW9mcmdu" target="_blank">
-          <img src="instagram.png" alt="Instagram" class="icon-img" /> @pravee.n.n.n
-        </a>
-      </div>
+<div class="contact-modal" id="contactModal" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); font-family: sans-serif;">
+  <div class="form-box">
+    <button onclick="document.getElementById('contactModal').style.display='none'" style="float: right; background: none; border: none; font-size: 18px; cursor: pointer;">✖</button>
+    <h2 style="margin-top: 0;">Contact the Developer</h2>
+    <div style="display: flex; gap: 30px; margin-top: 20px;">
+      <a href="mailto:zephyrax.co@gmail.com" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #000; font-weight: 500;">
+        <img src="gmail.png" alt="Gmail" style="width: 24px; height: 24px;" />
+        <span>zephyrax.co@gmail.com</span>
+      </a>
+      <a href="https://www.instagram.com/toyou.msg.app?igsh=MW56bHRxZTMzanhoNQ==" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #000; font-weight: 500;">
+        <img src="instagram.png" alt="Instagram" style="width: 24px; height: 24px;" />
+        <span>@toyou.msg.app</span>
+      </a>
     </div>
   </div>
-  <div class="contact-modal" id="helpModal">
-    <div class="form-box">
-        <button class="close-btn" data-modal-id="helpModal">✖</button>
-        <h2>Help</h2>
-        <p style="font-size:15px;line-height:1.7;"><b>How to use:</b><br>1. Click <b>+ Create Post</b> to write.<br>2. Set a theme, message, and receiver's name.<br>3. Click <b>Save</b> to post anonymously.<br><br><b>Can I delete/edit?</b> Not yet. Contact us for removal.</p>
-    </div>
-  </div>
+</div>
   
 <div class="contact-modal" id="improvementModal">
   <div class="form-box">

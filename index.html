@@ -399,7 +399,7 @@ function renderPosts(postsToRender, searchTerm = "") {
       <div class="top-bar"><span class="time-display">${time}</span><span class="receiver-name">${escapeHTML("To: " + post.receiver)}</span><div class="right-icons"><div class="signal"><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div></div><div class="battery-outline" style="border-color: ${textColor}"><div class="battery-fill" style="background: ${textColor}"></div><div class="battery-tip" style="background: ${textColor}"></div></div></div></div>
       <div class="typing-area">${msgHTML}</div>
       <div class="meta-bar"><span>${escapeHTML("By: " + (post.sender || "Anonymous"))}</span><span>${date}</span></div>
-      <div style="text-align:center;font-size:12px;margin-top:6px;font-family:'Pacifico',cursive;">#ToYou❤️</div>
+      <div style="text-align:center;font-size:12px;margin-top:6px;font-family:'Pacifico',cursive;">#ToYou<img src="ToYou.png" class="heart-img"></div>
     `;
 
     const interactionBar = document.createElement('div');
